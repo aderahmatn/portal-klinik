@@ -89,6 +89,13 @@
                                     <?= form_error('fstatus') ?>
                                 </div>
                             </div>
+                            <div class="form-group required">
+                                <label class="control-label" for="fperusahaan">Perusahaan</label>
+                                <input type="text" class="form-control <?= form_error('fperusahaan') ? 'is-invalid' : '' ?>" id="fperusahaan" name="fperusahaan" placeholder="Nama perusahaan" value="<?= $this->input->post('fperusahaan'); ?>">
+                                <div class="invalid-feedback">
+                                    <?= form_error('fperusahaan') ?>
+                                </div>
+                            </div>
                             <div class="form-group ">
                                 <label for="fbpjs">No BPJS</label>
                                 <input type="text" class="form-control <?= form_error('fbpjs') ? 'is-invalid' : '' ?>" id="fbpjs" name="fbpjs" placeholder="Nomor BPJS" value="<?= $this->input->post('fbpjs'); ?>">

@@ -40,45 +40,47 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <!-- <?php
-                                        $no = 1;
-                                        foreach ($users as $key) : ?>
+                                <?php
+                                $no = 1;
+                                foreach ($karyawan as $key) : ?>
                                     <tr class="text-uppercase">
                                         <td>
                                             <?= $no++ ?>
                                         </td>
                                         <td>
-                                            <a href="<?= base_url('users/detail/') . encrypt_url($key->id_user) ?>">
-                                                <?= $key->nik ?>
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <?= $key->nama_user ?>
-                                        </td>
-                                        <td>
-                                            <?= $key->email_user ?>
-                                        </td>
-                                        <td>
-                                            <?= $key->phone_user ?>
-                                        </td>
-                                        <td>
-                                            <?= $key->group_user ?>
-                                        </td>
-                                        <td>
 
-                                            <span class="badge badge-pill <?= $key->status_user == 1 ? "badge-success" : "badge-danger" ?>"><?= $key->status_user == 1 ? "Y" : "N" ?></span>
+                                            <?= $key->nik ?>
+
                                         </td>
                                         <td>
-                                            <a href="#" class="btn btn-xs btn-danger" onclick="deleteConfirm('<?= base_url() . 'users/delete/' . encrypt_url($key->id_user) ?>')">delete</a>
-
-                                            <?php
-                                            $value = $key->status_user == 1 ? '0' : '1' ?>
-                                            <a href="<?= base_url() . 'users/aktif_nonaktif/' . encrypt_url($key->id_user) . '/' . $value ?>" class="btn btn-xs <?= $key->status_user == 1 ? 'btn-warning' : 'btn-primary' ?>">
-                                                <?= $key->status_user == 1 ? 'NON AKTIFKAN' : 'AKTIFKAN' ?>
-                                            </a>
+                                            <?= $key->nama_lengkap ?>
+                                        </td>
+                                        <td>
+                                            <?= $key->jenkel ?>
+                                        </td>
+                                        <td>
+                                            <?= $key->perusahaan ?>
+                                        </td>
+                                        <td>
+                                            <?= $key->nama_divisi ?>
+                                        </td>
+                                        <td>
+                                            <?= $key->nama_departemen ?>
+                                        </td>
+                                        <td>
+                                            <?= $key->bagian ?>
+                                        </td>
+                                        <td>
+                                            <?= $key->status ?>
+                                        </td>
+                                        <td>
+                                            <?= $key->bpjs ?>
+                                        </td>
+                                        <td>
+                                            <a href="#" class="btn btn-xs btn-danger" onclick="deleteConfirm('<?= base_url() . 'karyawan/delete/' . encrypt_url($key->id_karyawan) ?>')">delete</a>
                                         </td>
                                     </tr>
-                                <?php endforeach; ?> -->
+                                <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>

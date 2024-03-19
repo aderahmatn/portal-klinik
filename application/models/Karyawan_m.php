@@ -62,19 +62,33 @@ class Karyawan_m extends CI_Model
     }
     public function get_all_karyawan()
     {
-        return $this->db->get_where($this->_table, ["deleted" => 0])->result();
+        $this->db->select('*');
+        $this->db->from($this->_table);
+        $this->db->join('divisi', 'divisi.id_divisi = karyawan.id_divisi', 'left');
+        $this->db->join('departemen', 'departemen.id_departemen = karyawan.id_departemen', 'left');
+        $this->db->where('karyawan.deleted', 0);
+        $query = $this->db->get();
+        return $query->result();
     }
-    public function add_divisi()
+    public function add_karyawan()
     {
         $post = $this->input->post();
-        $this->nama_divisi = $post['fnama_divisi'];
+        $this->nama_lengkap = $post['fnama_lengkap'];
+        $this->nik = $post['fnik'];
+        $this->jenkel = $post['fjenkel'];
+        $this->id_divisi = $post['fdivisi'];
+        $this->id_departemen = $post['fdepartemen'];
+        $this->bpjs = $post['fbpjs'];
+        $this->perusahaan = $post['fperusahaan'];
+        $this->bagian = $post['fbagian'];
+        $this->status = $post['fstatus'];
         $this->deleted = 0;
         $this->db->insert($this->_table, $this);
     }
-    public function delete_divisi($id)
+    public function delete_karyawan($id)
     {
         $this->db->set('deleted', 1);
-        $this->db->where('id_divisi', $id);
+        $this->db->where('id_karyawan', $id);
         $this->db->update($this->_table);
     }
 }

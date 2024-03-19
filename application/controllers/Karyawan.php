@@ -11,7 +11,8 @@ class Karyawan extends CI_Controller
     }
     public function index()
     {
-        $this->template->load('shared/index', 'karyawan/index');
+        $data['karyawan'] = $this->Karyawan_m->get_all_karyawan();
+        $this->template->load('shared/index', 'karyawan/index', $data);
     }
     public function divisi()
     {
@@ -81,6 +82,14 @@ class Karyawan extends CI_Controller
         if ($this->db->affected_rows() > 0) {
             $this->session->set_flashdata('success', 'Data departemen berhasil dihapus!');
             redirect('karyawan/departemen', 'refresh');
+        }
+    }
+    public function delete($id)
+    {
+        $this->Karyawan_m->delete_karyawan(decrypt_url($id));
+        if ($this->db->affected_rows() > 0) {
+            $this->session->set_flashdata('success', 'Data karyawan berhasil dihapus!');
+            redirect('karyawan', 'refresh');
         }
     }
 }
