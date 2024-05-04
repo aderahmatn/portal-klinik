@@ -51,6 +51,59 @@ class Karyawan extends CI_Controller
             }
         }
     }
+    function update($id = null)
+    {
+        if (!isset($id))
+            redirect('karyawan');
+        $divisi = $this->Divisi_m;
+        $departemen = $this->Departemen_m;
+        $karyawan = $this->Karyawan_m;
+        $validation = $this->form_validation;
+        $validation->set_rules($karyawan->rules_edit_karyawan());
+        if ($this->form_validation->run()) {
+            $post = $this->input->post(null, TRUE);
+            $this->Karyawan_m->update($post);
+            if ($this->db->affected_rows() > 0) {
+                $this->session->set_flashdata('success', 'Edit data karyawan berhasil!');
+                redirect('karyawan', 'refresh');
+            } else {
+                $this->session->set_flashdata('warning', 'Data Tidak Diupdate!');
+                redirect('karyawan', 'refresh');
+            }
+        }
+        $data['data'] = $this->Karyawan_m->get_by_id_karyawan($id);
+        if (!$data['data']) {
+            $this->session->set_flashdata('error', 'Data tidak ditemukan!');
+            // redirect('karyawan', 'refresh');
+        }
+        $data['divisi'] = $divisi->get_all_divisi();
+        $data['departemen'] = $departemen->get_all_departemen();
+        $this->template->load('shared/index', 'karyawan/edit', $data);
+    }
+    function update_divisi()
+    {
+        $post = $this->input->post(null, TRUE);
+        $this->Divisi_m->update_divisi($post);
+        if ($this->db->affected_rows() > 0) {
+            $this->session->set_flashdata('success', 'Edit data divisi berhasil!');
+            redirect('karyawan/divisi', 'refresh');
+        } else {
+            $this->session->set_flashdata('warning', 'Edit data divisi gagal!');
+            redirect('karyawan/divisi', 'refresh');
+        }
+    }
+    function update_departemen()
+    {
+        $post = $this->input->post(null, TRUE);
+        $this->Departemen_m->update_departemen($post);
+        if ($this->db->affected_rows() > 0) {
+            $this->session->set_flashdata('success', 'Edit data departemen berhasil!');
+            redirect('karyawan/departemen', 'refresh');
+        } else {
+            $this->session->set_flashdata('warning', 'Edit data departemen gagal!');
+            redirect('karyawan/departemen', 'refresh');
+        }
+    }
     public function departemen()
     {
         $departemen = $this->Departemen_m;

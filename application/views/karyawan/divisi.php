@@ -6,7 +6,7 @@
             </div>
             <div class="col-sm-6">
                 <div class=" float-sm-right justify-content-center">
-                    <a class="btn btn-md btn-primary mt-2" href="<?= base_url('karyawan') ?>">KEMBALI</a>
+                    <a class="btn btn-md btn-default mt-2" href="<?= base_url('karyawan') ?>">Kembali</a>
                 </div>
             </div>
         </div>
@@ -42,6 +42,9 @@
                                             <?= $key->nama_divisi ?>
                                         </td>
                                         <td>
+                                            <a href="javascript:;" data-id="<?= $key->id_divisi ?>" data-divisi="<?= $key->nama_divisi ?>" data-id="<?= $key->id_divisi ?>" data-toggle="modal" data-target="#edit-data">
+                                                <button data-toggle="modal" data-target="#ubah-data" class="btn btn-xs btn-primary">EDIT</button>
+                                            </a>
                                             <a href="#" class="btn btn-xs btn-danger" onclick="deleteConfirm('<?= base_url() . 'karyawan/delete_divisi/' . encrypt_url($key->id_divisi) ?>')">DELETE</a>
 
                                         </td>
@@ -58,10 +61,9 @@
                     <!-- card-body -->
                     <div class="card-body">
                         <form role="form" method="POST" action="" autocomplete="off">
-                            <input type="hidden" name="<?= $this->security->get_csrf_token_name(); ?>" value="<?= $this->security->get_csrf_hash(); ?>" style="display: none">
                             <div class="form-group required">
                                 <label class="control-label" for="fnama_divisi">Tambah Divisi</label>
-                                <input type="text" class="form-control <?= form_error('fnama_divisi') ? 'is-invalid' : '' ?>" id="fnama_divisi" name="fnama_divisi" placeholder="Nama divisi" value="<?= $this->input->post('fnama_divisi'); ?>">
+                                <input type="text" class="form-control <?= form_error('fnama_divisi') ? 'is-invalid' : '' ?>" id="fnama_divisi" name="fnama_divisi" placeholder="Nama divisi" value="<?= $this->input->post('fnama_divisi'); ?>" style="text-transform:uppercase">
                                 <div class="invalid-feedback">
                                     <?= form_error('fnama_divisi') ?>
                                 </div>
@@ -99,9 +101,54 @@
         </div>
     </div>
 </div>
-
 <!-- Delete Confirm -->
+
+<!-- Modal Ubah -->
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="edit-data" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <P class="modal-title">EDIT DATA DIVISI</P>
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+            </div>
+            <form class="form-horizontal" action="<?= base_url('karyawan/update_divisi') ?>" method="post" enctype="multipart/form-data" role="form">
+                <div class="modal-body">
+                    <div class="form-group required">
+                        <input type="hidden" class="form-control" id="fid_divisi" name="fid_divisi" placeholder="ID divisi" value="<?= $this->input->post('fid_divisi'); ?>" readonly>
+
+                        <input type="text" class="form-control <?= form_error('fnama_divisi') ? 'is-invalid' : '' ?>" id="fnama_divisi" name="fnama_divisi" placeholder="Nama divisi" value="<?= $this->input->post('fnama_divisi'); ?>" style="text-transform:uppercase">
+
+
+
+                        <div class="invalid-feedback">
+                            <?= form_error('fnama_divisi') ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-default" type="button" data-dismiss="modal"> Batal</button>
+                    <button id="btn-delete" class="btn btn-primary" type="submit"> Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+<!-- END Modal Ubah -->
+
 <script type="text/javascript">
+    $(document).ready(function() {
+        // Untuk sunting
+        $('#edit-data').on('show.bs.modal', function(event) {
+            var div = $(event.relatedTarget) // Tombol dimana modal di tampilkan
+            var modal = $(this)
+
+            // Isi nilai pada field
+            modal.find('#fnama_divisi').attr("value", div.data('divisi'));
+            modal.find('#fid_divisi').attr("value", div.data('id'));
+        });
+    });
+
     function deleteConfirm(url) {
         $('#btn-delete').attr('href', url);
         $('#deleteModal').modal();

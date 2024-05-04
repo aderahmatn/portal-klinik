@@ -34,6 +34,12 @@ class Departemen_m extends CI_Model
         $this->db->where('id_departemen', $id);
         $this->db->update($this->_table);
     }
+    public function update_departemen($post)
+    {
+        $this->db->set('nama_departemen', $post['fnama_departemen']);
+        $this->db->where('id_departemen', $post['fid_departemen']);
+        $this->db->update($this->_table);
+    }
 }
 
 /* End of file Jenis_pekerjaan_m.php */

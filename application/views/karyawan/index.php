@@ -6,9 +6,9 @@
             </div>
             <div class="col-sm-6">
                 <div class=" float-sm-right justify-content-center">
-                    <a class="btn btn-md btn-default mt-2" href="<?= base_url('karyawan/create') ?>">TAMBAH KARYAWAN</a>
-                    <a class="btn btn-md btn-default mt-2" href="<?= base_url('karyawan/divisi') ?>">DATA DIVISI</a>
-                    <a class="btn btn-md btn-default mt-2" href="<?= base_url('karyawan/departemen') ?>">DATA DEPARTEMEN</a>
+                    <a class="btn btn-md btn-primary mt-2" href="<?= base_url('karyawan/create') ?>">TAMBAH KARYAWAN</a>
+                    <a class="btn btn-md btn-primary mt-2" href="<?= base_url('karyawan/divisi') ?>">DATA DIVISI</a>
+                    <a class="btn btn-md btn-primary mt-2" href="<?= base_url('karyawan/departemen') ?>">DATA DEPARTEMEN</a>
                 </div>
             </div>
         </div>
@@ -30,6 +30,7 @@
                                     <th>NIK</th>
                                     <th>NAMA</th>
                                     <th>L/P</th>
+                                    <th>TGL LAHIR</th>
                                     <th>PERUSAHAAN</th>
                                     <th>DIVISI</th>
                                     <th>DEPT</th>
@@ -59,6 +60,9 @@
                                             <?= $key->jenkel ?>
                                         </td>
                                         <td>
+                                            <?= TanggalIndo($key->tgl_lahir)  ?>
+                                        </td>
+                                        <td>
                                             <?= $key->perusahaan ?>
                                         </td>
                                         <td>
@@ -77,7 +81,8 @@
                                             <?= $key->bpjs ?>
                                         </td>
                                         <td>
-                                            <a href="#" class="btn btn-xs btn-danger" onclick="deleteConfirm('<?= base_url() . 'karyawan/delete/' . encrypt_url($key->id_karyawan) ?>')">delete</a>
+                                            <a class="btn btn-xs btn-primary" href="<?= base_url('karyawan/update/') . $key->id_karyawan ?>">EDIT</a>
+                                            <a href="#" class="btn btn-xs btn-danger" onclick="deleteConfirm('<?= base_url() . 'karyawan/delete/' . encrypt_url($key->id_karyawan) ?>')">DELETE</a>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>

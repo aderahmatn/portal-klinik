@@ -34,6 +34,12 @@ class Divisi_m extends CI_Model
         $this->db->where('id_divisi', $id);
         $this->db->update($this->_table);
     }
+    public function update_divisi($post)
+    {
+        $this->db->set('nama_divisi', $post['fnama_divisi']);
+        $this->db->where('id_divisi', $post['fid_divisi']);
+        $this->db->update($this->_table);
+    }
 }
 
 /* End of file Jenis_pekerjaan_m.php */

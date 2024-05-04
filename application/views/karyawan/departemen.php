@@ -6,7 +6,7 @@
             </div>
             <div class="col-sm-6">
                 <div class=" float-sm-right justify-content-center">
-                    <a class="btn btn-md btn-primary mt-2" href="<?= base_url('karyawan') ?>">KEMBALI</a>
+                    <a class="btn btn-md btn-default mt-2" href="<?= base_url('karyawan') ?>">Kembali</a>
                 </div>
             </div>
         </div>
@@ -42,6 +42,9 @@
                                             <?= $key->nama_departemen ?>
                                         </td>
                                         <td>
+                                            <a href="javascript:;" data-id="<?= $key->id_departemen ?>" data-departemen="<?= $key->nama_departemen ?>" data-toggle="modal" data-target="#edit-data">
+                                                <button data-toggle="modal" data-target="#ubah-data" class="btn btn-xs btn-primary">EDIT</button>
+                                            </a>
                                             <a href="#" class="btn btn-xs btn-danger" onclick="deleteConfirm('<?= base_url() . 'karyawan/delete_departemen/' . encrypt_url($key->id_departemen) ?>')">DELETE</a>
 
                                         </td>
@@ -58,10 +61,9 @@
                     <!-- card-body -->
                     <div class="card-body">
                         <form role="form" method="POST" action="" autocomplete="off">
-                            <input type="hidden" name="<?= $this->security->get_csrf_token_name(); ?>" value="<?= $this->security->get_csrf_hash(); ?>" style="display: none">
                             <div class="form-group required">
                                 <label class="control-label" for="fnama_departemen">Tambah Departemen</label>
-                                <input type="text" class="form-control <?= form_error('fnama_departemen') ? 'is-invalid' : '' ?>" id="fnama_departemen" name="fnama_departemen" placeholder="Nama divisi" value="<?= $this->input->post('fnama_departemen'); ?>">
+                                <input type="text" class="form-control <?= form_error('fnama_departemen') ? 'is-invalid' : '' ?>" id="fnama_departemen" name="fnama_departemen" placeholder="Nama departemen" value="<?= $this->input->post('fnama_departemen'); ?>" style="text-transform:uppercase">
                                 <div class="invalid-feedback">
                                     <?= form_error('fnama_departemen') ?>
                                 </div>
@@ -99,9 +101,50 @@
         </div>
     </div>
 </div>
-
 <!-- Delete Confirm -->
+
+<!-- Modal Ubah -->
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="edit-data" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <P class="modal-title">EDIT DATA DEPARTEMEN</P>
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+            </div>
+            <form class="form-horizontal" action="<?= base_url('karyawan/update_departemen') ?>" method="post" enctype="multipart/form-data" role="form">
+                <div class="modal-body">
+                    <div class="form-group required">
+                        <input type="hidden" class="form-control" id="fid_departemen" name="fid_departemen" placeholder="ID divisi" value="<?= $this->input->post('fid_departemen'); ?>" readonly>
+
+                        <input type="text" class="form-control <?= form_error('fnama_departemen') ? 'is-invalid' : '' ?>" id="fnama_departemen" name="fnama_departemen" placeholder="Nama divisi" value="<?= $this->input->post('fnama_departemen'); ?>" style="text-transform:uppercase">
+
+
+
+                        <div class="invalid-feedback">
+                            <?= form_error('fnama_departemen') ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-default" type="button" data-dismiss="modal"> Batal</button>
+                    <button id="btn-delete" class="btn btn-primary" type="submit"> Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+<!-- END Modal Ubah -->
 <script type="text/javascript">
+    $(document).ready(function() {
+        $('#edit-data').on('show.bs.modal', function(event) {
+            var div = $(event.relatedTarget)
+            var modal = $(this)
+            modal.find('#fnama_departemen').attr("value", div.data('departemen'));
+            modal.find('#fid_departemen').attr("value", div.data('id'));
+        });
+    });
+
     function deleteConfirm(url) {
         $('#btn-delete').attr('href', url);
         $('#deleteModal').modal();
