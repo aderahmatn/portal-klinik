@@ -7,6 +7,7 @@ class Karyawan extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+        check_not_login();
         $this->load->model(['Divisi_m', 'Departemen_m', 'Karyawan_m']);
     }
     public function index()

@@ -1,12 +1,14 @@
-<section class="content-header">
-    <div class="container-fluid">
-        <div class="row mb-2">
+<section class="content-header align-content-center rounded">
+    <div class="container-fluid title-page rounded">
+        <div class="row">
             <div class="col-sm-6">
-                <h1 class="mt-2">DATA DIVISI</h1>
+                <h3 class="mb-0 text-white font-weight-bold">DATA DIVISI</h3>
+                <p class="mb-0 text-white font-weight-light">Kelola data master divisi karyawan</p>
             </div>
             <div class="col-sm-6">
                 <div class=" float-sm-right justify-content-center">
-                    <a class="btn btn-md btn-default mt-2" href="<?= base_url('karyawan') ?>">Kembali</a>
+                    <a class="btn btn-md btn-primary mt-2" href="<?= base_url('karyawan') ?>">Kembali</a>
+
                 </div>
             </div>
         </div>
@@ -14,66 +16,64 @@
 </section>
 <!-- Main content -->
 <section class="content">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-8">
-                <div class="card ">
-                    <!-- card-body -->
-                    <div class="card-body table-responsive-sm">
-                        <table id="TabelUser" class="table table-condensed table-sm ">
-                            <thead>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card ">
+                <!-- card-body -->
+                <div class="card-body table-responsive-sm">
+                    <table id="TabelUser" class="table table-condensed table-sm ">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>DIVISI</th>
+                                <th>OPSI</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $no = 1;
+                            foreach ($divisi as $key) : ?>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>DIVISI</th>
-                                    <th>OPSI</th>
+                                    <td>
+                                        <span class="badge badge-secondary">
+                                            <?= $key->id_divisi ?>
+                                        </span>
+                                    </td>
+                                    <td class="text-uppercase">
+                                        <?= $key->nama_divisi ?>
+                                    </td>
+                                    <td>
+                                        <a href="javascript:;" data-id="<?= $key->id_divisi ?>" data-divisi="<?= $key->nama_divisi ?>" data-id="<?= $key->id_divisi ?>" data-toggle="modal" data-target="#edit-data">
+                                            <button data-toggle="modal" data-target="#ubah-data" class="btn btn-xs btn-primary">EDIT</button>
+                                        </a>
+                                        <a href="#" class="btn btn-xs btn-danger" onclick="deleteConfirm('<?= base_url() . 'karyawan/delete_divisi/' . encrypt_url($key->id_divisi) ?>')">DELETE</a>
+
+                                    </td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                $no = 1;
-                                foreach ($divisi as $key) : ?>
-                                    <tr>
-                                        <td>
-                                            <span class="badge badge-secondary">
-                                                <?= $key->id_divisi ?>
-                                            </span>
-                                        </td>
-                                        <td class="text-uppercase">
-                                            <?= $key->nama_divisi ?>
-                                        </td>
-                                        <td>
-                                            <a href="javascript:;" data-id="<?= $key->id_divisi ?>" data-divisi="<?= $key->nama_divisi ?>" data-id="<?= $key->id_divisi ?>" data-toggle="modal" data-target="#edit-data">
-                                                <button data-toggle="modal" data-target="#ubah-data" class="btn btn-xs btn-primary">EDIT</button>
-                                            </a>
-                                            <a href="#" class="btn btn-xs btn-danger" onclick="deleteConfirm('<?= base_url() . 'karyawan/delete_divisi/' . encrypt_url($key->id_divisi) ?>')">DELETE</a>
+                            <?php endforeach; ?>
 
-                                        </td>
-                                    </tr>
-                                <?php endforeach; ?>
-
-                        </table>
-                    </div>
+                    </table>
                 </div>
-                <!-- /.card -->
             </div>
-            <div class="col-md-4">
-                <div class="card ">
-                    <!-- card-body -->
-                    <div class="card-body">
-                        <form role="form" method="POST" action="" autocomplete="off">
-                            <div class="form-group required">
-                                <label class="control-label" for="fnama_divisi">Tambah Divisi</label>
-                                <input type="text" class="form-control <?= form_error('fnama_divisi') ? 'is-invalid' : '' ?>" id="fnama_divisi" name="fnama_divisi" placeholder="Nama divisi" value="<?= $this->input->post('fnama_divisi'); ?>" style="text-transform:uppercase">
-                                <div class="invalid-feedback">
-                                    <?= form_error('fnama_divisi') ?>
-                                </div>
+            <!-- /.card -->
+        </div>
+        <div class="col-md-4">
+            <div class="card ">
+                <!-- card-body -->
+                <div class="card-body">
+                    <form role="form" method="POST" action="" autocomplete="off">
+                        <div class="form-group required">
+                            <label class="control-label" for="fnama_divisi">Tambah Divisi</label>
+                            <input type="text" class="form-control <?= form_error('fnama_divisi') ? 'is-invalid' : '' ?>" id="fnama_divisi" name="fnama_divisi" placeholder="Nama divisi" value="<?= $this->input->post('fnama_divisi'); ?>" style="text-transform:uppercase">
+                            <div class="invalid-feedback">
+                                <?= form_error('fnama_divisi') ?>
                             </div>
-                            <button type="submit" class="btn btn-primary float-right">Tambah</button>
-                        </form>
-                    </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary float-right">Tambah</button>
+                    </form>
                 </div>
-                <!-- /.card -->
             </div>
+            <!-- /.card -->
         </div>
     </div>
 </section>

@@ -2,14 +2,12 @@
     <div class="container-fluid title-page rounded">
         <div class="row">
             <div class="col-sm-6">
-                <h3 class="mb-0 text-white font-weight-bold">DATA KARYAWAN</h3>
-                <p class="mb-0 text-white font-weight-light">Kelola data master karyawan</p>
+                <h3 class="mb-0 text-white font-weight-bold">DATA USER</h3>
+                <p class="mb-0 text-white font-weight-light">Kelola data master user perawat dan administrator portal klinik</p>
             </div>
             <div class="col-sm-6">
                 <div class=" float-sm-right justify-content-center">
-                    <a class="btn btn-md btn-primary mt-2" href="<?= base_url('karyawan/create') ?>">TAMBAH KARYAWAN</a>
-                    <a class="btn btn-md btn-primary mt-2" href="<?= base_url('karyawan/divisi') ?>">DATA DIVISI</a>
-                    <a class="btn btn-md btn-primary mt-2" href="<?= base_url('karyawan/departemen') ?>">DATA DEPARTEMEN</a>
+                    <a class="btn btn-md btn-primary mt-2" href="<?= base_url('user/create') ?>">TAMBAH USER</a>
                 </div>
             </div>
         </div>
@@ -28,62 +26,40 @@
                         <thead>
                             <tr>
                                 <th style="width: 15px">No</th>
-                                <th>NIK</th>
                                 <th>NAMA</th>
-                                <th>L/P</th>
-                                <th>TGL LAHIR</th>
-                                <th>PERUSAHAAN</th>
-                                <th>DIVISI</th>
-                                <th>DEPT</th>
-                                <th>BAGIAN</th>
-                                <th>STATUS</th>
-                                <th>BPJS</th>
+                                <th>EMAIL</th>
+                                <th>WHATSAPP</th>
+                                <th>USERNAME</th>
+                                <th>LEVEL</th>
                                 <th>OPSI</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php
                             $no = 1;
-                            foreach ($karyawan as $key) : ?>
+                            foreach ($user as $key) : ?>
                                 <tr class="text-uppercase">
                                     <td>
                                         <?= $no++ ?>
                                     </td>
                                     <td>
-
-                                        <?= $key->nik ?>
-
+                                        <?= $key->nama_user ?>
                                     </td>
                                     <td>
-                                        <?= $key->nama_lengkap ?>
+                                        <?= $key->email_user ?>
                                     </td>
                                     <td>
-                                        <?= $key->jenkel ?>
+                                        <?= $key->whatsapp_user ?>
                                     </td>
                                     <td>
-                                        <?= TanggalIndo($key->tgl_lahir)  ?>
+                                        <?= $key->username  ?>
                                     </td>
                                     <td>
-                                        <?= $key->perusahaan ?>
+                                        <?= $key->level  ?>
                                     </td>
                                     <td>
-                                        <?= $key->nama_divisi ?>
-                                    </td>
-                                    <td>
-                                        <?= $key->nama_departemen ?>
-                                    </td>
-                                    <td>
-                                        <?= $key->bagian ?>
-                                    </td>
-                                    <td>
-                                        <?= $key->status ?>
-                                    </td>
-                                    <td>
-                                        <?= $key->bpjs ?>
-                                    </td>
-                                    <td>
-                                        <a class="btn btn-xs btn-primary" href="<?= base_url('karyawan/update/') . $key->id_karyawan ?>">EDIT</a>
-                                        <a href="#" class="btn btn-xs btn-danger" onclick="deleteConfirm('<?= base_url() . 'karyawan/delete/' . encrypt_url($key->id_karyawan) ?>')">DELETE</a>
+                                        <a href="<?= base_url('user/edit/') . encrypt_url($key->id_user) ?>" class="btn btn-xs btn-primary">EDIT</a>
+                                        <a href="#" class="btn btn-xs btn-danger" onclick="deleteConfirm('<?= base_url() . 'user/delete/' . encrypt_url($key->id_user) ?>')">delete</a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
@@ -91,6 +67,7 @@
                     </table>
                 </div>
             </div>
+            <!-- /.card -->
         </div>
     </div>
 </section>

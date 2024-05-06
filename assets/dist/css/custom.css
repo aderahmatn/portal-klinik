@@ -17,3 +17,26 @@ input[type="file"]::file-selector-button:hover {
 	background: #4a5158;
 	color: #e9ecef;
 }
+.user-panel{
+background-image: url('../../../assets/images/favicon.png');
+background-position: 180px 18px;
+background-size: 95px 95px;
+background-repeat: no-repeat;
+background-color:#63c4d7;
+}
+.content-header{
+margin-left: 7.5px;
+margin-right: 7.5px;
+margin-bottom: 1rem;
+background: #63c4d7;
+background: linear-gradient(72deg, rgba(25,109,180,1) 0%, #63c4d7 44%);
+}
+
+.img-header{
+	width: 200px;
+	margin-bottom: -1rem;
+	margin-right: 3rem;
+	/* position: relative; */
+	/* top:-50px; left:80%; */
+}
+

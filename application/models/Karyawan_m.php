@@ -170,9 +170,8 @@ class Karyawan_m extends CI_Model
     }
     public function delete_karyawan($id)
     {
-        $this->db->set('deleted', 1);
         $this->db->where('id_karyawan', $id);
-        $this->db->update($this->_table);
+        $this->db->delete('karyawan');
     }
 }
 

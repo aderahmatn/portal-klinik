@@ -1,13 +1,3 @@
-<section class="content-header">
-    <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-sm-6">
-                <h1 class="mt-2">EDIT DATA KARYAWAN</h1>
-            </div>
-        </div>
-    </div><!-- /.container-fluid -->
-</section>
-<!-- Main content -->
 <section class="content">
     <div class="container-fluid">
         <div class="row">
@@ -16,6 +6,21 @@
                 <div class="card ">
                     <!-- card-body -->
                     <div class="card-body">
+                        <section class=" mx-0 content-header align-content-center rounded">
+                            <div class="container-fluid title-page rounded">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <h3 class="mb-0 text-white font-weight-bold">EDIT DATA KARYAWAN</h3>
+                                        <!-- <p class="mb-0 text-white font-weight-light"><?= decrypt_url($this->session->userdata('email'))  ?></p> -->
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class=" float-sm-right justify-content-center">
+                                            <img src="<?= base_url() . 'assets/images/karyawan.png' ?>" alt="Responsive image" class="img-header">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!-- /.container-fluid -->
+                        </section>
                         <form role="form" method="POST" action="" autocomplete="off">
                             <input type="hidden" name="fid_karyawan" value="<?= $data->id_karyawan ?>">
                             <div class="form-group required">

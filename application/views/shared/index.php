@@ -54,11 +54,16 @@
                 <li class="nav-item">
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
-
+            </ul>
+            <ul class="navbar-nav">
+                <li class="nav-item ">
+                    <p class="font-weight-light mb-0 text-muted">PORTAL KLINIK</p>
+                </li>
             </ul>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <p class="m-0 text-muted text-md mr-4"><?= ucwords($this->session->userdata('nama_admin'))  ?></p>
+                    <p class="font-weight-light text-xs mb-0 text-muted">Server Time :</p>
+                    <p class="font-weight-light text-xs mb-0 text-muted" id="time"></p>
 
                 </li>
             </ul>
@@ -66,18 +71,17 @@
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        <aside class="main-sidebar sidebar-dark-primary elevation-4 ">
+
+        <aside class="main-sidebar sidebar-dark-info ">
             <!-- Sidebar -->
             <div class="sidebar">
-                <!-- Sidebar user panel (optional) -->
-                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                <div class="user-panel  py-2 mb-3 d-flex mx-n2  rounded-bottom">
                     <span class="navbar-brand text-white ml-3">
-                        <span class="brand-text font-weight-light">PORTAL KLINIK</span>
+                        <p class="m-0 font-weight-normal  text-xs mr-4">Anda log in sebagai :</p>
+                        <p class="m-0 font-weight-bold text-md mr-4"><?= ucwords(decrypt_url($this->session->userdata('nama_user')))  ?></p>
+                        <p class="m-0 font-weight-normal   text-xs mr-4"><?= decrypt_url($this->session->userdata('email'))  ?></p>
                     </span>
                 </div>
-
-
-
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
@@ -89,9 +93,9 @@
                                 </p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link ">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <li class="nav-item <?= $this->uri->segment(1) == 'kunjungan' || $this->uri->segment(1) == 'skd' || $this->uri->segment(1) == 'kk' || $this->uri->segment(1) == 'mcu' ? 'menu-open ' : '' ?>">
+                            <a href="" class="nav-link <?= $this->uri->segment(1) == 'kunjungan' || $this->uri->segment(1) == 'skd' || $this->uri->segment(1) == 'kk' || $this->uri->segment(1) == 'mcu' ? 'active ' : '' ?>">
+                                <i class=" nav-icon fas fa-notes-medical"></i>
                                 <p>
                                     INPUT AKTIVITAS
                                     <i class="right fas fa-angle-left"></i>
@@ -99,25 +103,25 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="./index.html" class="nav-link active">
+                                    <a href="<?= base_url('kunjungan') ?>" class="nav-link <?= $this->uri->segment(1) == 'kunjungan' ? 'active' : '' ?>">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>KUNJUNGAN</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="./index2.html" class="nav-link">
+                                    <a href="<?= base_url('skd') ?>" class="nav-link <?= $this->uri->segment(1) == 'skd' ? 'active' : '' ?>">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>SKD</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="./index3.html" class="nav-link">
+                                    <a href="<?= base_url('kk') ?>" class="nav-link <?= $this->uri->segment(1) == 'kk' ? 'active' : '' ?>">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>KECELAKAAN KERJA</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="./index3.html" class="nav-link">
+                                    <a href="<?= base_url('mcu') ?>" class="nav-link <?= $this->uri->segment(1) == 'mcu' ? 'active' : '' ?>">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>MCU</p>
                                     </a>
@@ -126,16 +130,26 @@
                         </li>
                         <li class="nav-item">
                             <a href="<?= base_url('karyawan') ?>" class="nav-link <?= $this->uri->segment(1) == 'karyawan' ? 'active' : '' ?>">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <i class="nav-icon fas fa-users"></i>
                                 <p>
                                     DATA KARYAWAN
                                 </p>
                             </a>
                         </li>
-
+                        <?php
+                        if (decrypt_url($this->session->userdata('level')) == 'ADMINISTRATOR') { ?>
+                            <li class="nav-item">
+                                <a href="<?= base_url('user') ?>" class="nav-link <?= $this->uri->segment(1) == 'user' ? 'active' : '' ?>">
+                                    <i class="nav-icon fas fa-user-lock"></i>
+                                    <p>
+                                        DATA USER
+                                    </p>
+                                </a>
+                            </li>
+                        <?php } ?>
                         <hr>
                         <li class="nav-item">
-                            <a href="<?= base_url('auth/logout_admin') ?>" class="nav-link">
+                            <a href="<?= base_url('auth/logout') ?>" class="nav-link">
                                 <i class="nav-icon fas fa-sign-out-alt"></i>
                                 <p>
                                     LOGOUT
@@ -150,19 +164,19 @@
         </aside>
 
         <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
+        <div class="content-wrapper pt-3">
             <?= $contents ?>
         </div>
         <!-- /.content-wrapper -->
         <footer class="main-footer">
-            <div class="text-sm">
+            <div class="text-sm font-weight-light">
                 <strong>Copyright &copy; 2024 </strong> -
                 All rights reserved.
                 <div class="float-right d-none d-sm-inline-block text-sm text-muted">
-                    Made with <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="grey" class="bi bi-heart-fill mx-0" viewBox="0 0 16 16">
+                    Made with <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" fill="red" class="bi bi-heart-fill mx-0" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
                     </svg>
-                    for <a href="#" class="text-muted" target="_blank">Portal Klinik</a>
+                    for <a href="#" class="text-muted " target="_blank">Portal Klinik</a>
                 </div>
             </div>
 
@@ -223,6 +237,15 @@
 
 </html>
 <script>
+    var timestamp = '<?= time(); ?>';
+
+    function updateTime() {
+        $('#time').html(Date(timestamp));
+        timestamp++;
+    }
+    $(function() {
+        setInterval(updateTime, 1000);
+    });
     $(function() {
         bsCustomFileInput.init();
     });
