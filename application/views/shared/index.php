@@ -136,6 +136,14 @@
                                 </p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('obat') ?>" class="nav-link <?= $this->uri->segment(1) == 'obat' ? 'active' : '' ?>">
+                                <i class="nav-icon fas fa-pills"></i>
+                                <p>
+                                    INVENTORY OBAT
+                                </p>
+                            </a>
+                        </li>
                         <?php
                         if (decrypt_url($this->session->userdata('level')) == 'ADMINISTRATOR') { ?>
                             <li class="nav-item">

@@ -129,4 +129,8 @@ $(document).ready(function () {
 		// info: false,
 		// paging: false
 	});
+	$("#tableObat123").DataTable({
+		responsive: true,
+		bDestroy: true,
+	});
 });
