@@ -157,7 +157,7 @@
                         </div>
                     </div>
                     <div class="form-group required">
-                        <label class="control-label" for="fminimum_stok">Jumlah</label>
+                        <label class="control-label" for="fminimum_stok">Minimum Stok</label>
                         <input type="number" class="form-control <?= form_error('fminimum_stok') ? 'is-invalid' : '' ?>" id="fminimum_stok" name="fminimum_stok" placeholder="Jumlah obat masuk" value="<?= $this->input->post('fminimum_stok'); ?>" min="1">
                         <div class="invalid-feedback">
                             <?= form_error('fminimum_stok') ?>

@@ -1,8 +1,30 @@
 $(document).ready(function () {
+	$("#tableDiagnosa").DataTable({
+		// rowReorder: {
+		//     selector: 'td:nth-child(2)'
+		// },
+		order: [],
+		responsive: true,
+	});
+	$("#tableMCU").DataTable({
+		rowReorder: {
+			selector: "td:nth-child(4)",
+		},
+		order: [],
+		responsive: true,
+	});
+	$("#tableKaryawan").DataTable({
+		// rowReorder: {
+		//     selector: 'td:nth-child(2)'
+		// },
+		order: [],
+		responsive: true,
+	});
 	$("#tableUSer").DataTable({
 		// rowReorder: {
 		//     selector: 'td:nth-child(2)'
 		// },
+		order: [],
 		responsive: true,
 	});
 	$("#tableKeuangan").DataTable({
@@ -81,35 +103,6 @@ $(document).ready(function () {
 						});
 				});
 		},
-
-		// initComplete: function () {
-		// 	this.api()
-		// 		.columns()
-		// 		.every(function () {
-		// 			let column = this;
-
-		// 			// Create select element
-		// 			let select = document.createElement("select");
-
-		// 			select.add(new Option(""));
-		// 			column.footer().replaceChildren(select);
-
-		// 			// Apply listener for user change in value
-		// 			select.addEventListener("change", function () {
-		// 				var val = DataTable.util.escapeRegex(select.value);
-		// 				column.search(val ? "^" + val + "$" : "", true, false).draw();
-		// 			});
-
-		// 			// Add list of options
-		// 			column
-		// 				.data()
-		// 				.unique()
-		// 				.sort()
-		// 				.each(function (d, j) {
-		// 					select.add(new Option(d));
-		// 				});
-		// 		});
-		// },
 	});
 	$("#tableOnModal").DataTable({
 		// rowReorder: {

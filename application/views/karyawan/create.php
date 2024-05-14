@@ -95,7 +95,7 @@
                                 <option hidden value="" selected>Pilih Status Karyawan </option>
                                 <option value="MAGANG">MAGANG</option>
                                 <option value="OUTSOURCE">OUTSOURCE</option>
-                                <option value="PKWTL">PKWT</option>
+                                <option value="PKWT">PKWT</option>
                                 <option value="HT">HT</option>
                                 <option value="STAFF">STAFF</option>
                             </select>

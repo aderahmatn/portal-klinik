@@ -144,6 +144,14 @@
                                 </p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('diagnosa') ?>" class="nav-link <?= $this->uri->segment(1) == 'diagnosa' ? 'active' : '' ?>">
+                                <i class="nav-icon fas fa-file-medical-alt"></i>
+                                <p>
+                                    DATA DIAGNOSA
+                                </p>
+                            </a>
+                        </li>
                         <?php
                         if (decrypt_url($this->session->userdata('level')) == 'ADMINISTRATOR') { ?>
                             <li class="nav-item">

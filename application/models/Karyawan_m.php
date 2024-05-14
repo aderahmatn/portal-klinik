@@ -22,7 +22,7 @@ class Karyawan_m extends CI_Model
             [
                 'field' => 'fnik',
                 'label' => 'NIK',
-                'rules' => 'required|is_unique[karyawan.nik]'
+                'rules' => 'required|is_unique[karyawan.nik]|min_length[8]|max_length[8]'
             ],
             [
                 'field' => 'ftgl_lahir',
@@ -123,6 +123,8 @@ class Karyawan_m extends CI_Model
         $this->db->join('divisi', 'divisi.id_divisi = karyawan.id_divisi', 'left');
         $this->db->join('departemen', 'departemen.id_departemen = karyawan.id_departemen', 'left');
         $this->db->where('karyawan.deleted', 0);
+        $this->db->order_by('id_karyawan', 'desc');
+
         $query = $this->db->get();
         return $query->result();
     }
