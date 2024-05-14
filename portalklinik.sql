@@ -11,7 +11,7 @@
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
@@ -23,21 +23,21 @@ CREATE TABLE `departemen` (
   `nama_departemen` text,
   `deleted` int DEFAULT NULL,
   PRIMARY KEY (`id_departemen`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 CREATE TABLE `diagnosa` (
   `id_diagnosa` int NOT NULL AUTO_INCREMENT,
   `diagnosa` text,
   `deleted` int DEFAULT NULL,
   PRIMARY KEY (`id_diagnosa`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 CREATE TABLE `divisi` (
   `id_divisi` int NOT NULL AUTO_INCREMENT,
   `nama_divisi` text,
   `deleted` int DEFAULT NULL,
   PRIMARY KEY (`id_divisi`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 CREATE TABLE `karyawan` (
   `id_karyawan` int NOT NULL AUTO_INCREMENT,
@@ -53,13 +53,13 @@ CREATE TABLE `karyawan` (
   `deleted` int DEFAULT NULL,
   `tgl_lahir` date DEFAULT NULL,
   PRIMARY KEY (`id_karyawan`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 CREATE TABLE `kunjungan` (
   `id_kunjungan` int NOT NULL AUTO_INCREMENT,
   `tgl_kunjungan` date DEFAULT NULL,
   `id_user` text,
-  `jam_kunjungan` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
+  `jam_kunjungan` text CHARACTER SET utf8 COLLATE utf8_general_ci,
   `id_karyawan` text,
   `anamnesa` text,
   `catatan_kunjungan` text,
@@ -67,7 +67,7 @@ CREATE TABLE `kunjungan` (
   `teraphy` text,
   `deleted` int DEFAULT NULL,
   PRIMARY KEY (`id_kunjungan`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 CREATE TABLE `mcu` (
   `id_mcu` int NOT NULL AUTO_INCREMENT,
@@ -80,7 +80,7 @@ CREATE TABLE `mcu` (
   `deleted` int DEFAULT NULL,
   `created_by` int DEFAULT NULL,
   PRIMARY KEY (`id_mcu`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 CREATE TABLE `obat` (
   `id_obat` int NOT NULL AUTO_INCREMENT,
@@ -89,7 +89,7 @@ CREATE TABLE `obat` (
   `minimum_stok` int DEFAULT NULL,
   `deleted` int DEFAULT NULL,
   PRIMARY KEY (`id_obat`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 CREATE TABLE `stok_obat` (
   `id_stok_obat` int NOT NULL AUTO_INCREMENT,
@@ -100,7 +100,7 @@ CREATE TABLE `stok_obat` (
   `created_by` int DEFAULT NULL,
   `deleted_stok` int DEFAULT NULL,
   PRIMARY KEY (`id_stok_obat`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 CREATE TABLE `user` (
   `id_user` int NOT NULL AUTO_INCREMENT,
@@ -112,7 +112,7 @@ CREATE TABLE `user` (
   `password` text,
   `level` text,
   PRIMARY KEY (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 INSERT INTO `departemen` (`id_departemen`, `nama_departemen`, `deleted`) VALUES
 (1, 'irga', 0),
