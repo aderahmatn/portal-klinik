@@ -12,7 +12,9 @@ class Karyawan_m extends CI_Model
     public $id_divisi;
     public $id_departemen;
     public $bpjs;
+    public $bpjs_tk;
     public $perusahaan;
+    public $tgl_join;
     public $bagian;
     public $status;
     public $deleted;
@@ -60,6 +62,11 @@ class Karyawan_m extends CI_Model
                 'rules' => 'required'
             ],
             [
+                'field' => 'ftgl_join',
+                'label' => 'tanggal join',
+                'rules' => 'required'
+            ],
+            [
                 'field' => 'fstatus',
                 'label' => 'status',
                 'rules' => 'required'
@@ -72,6 +79,11 @@ class Karyawan_m extends CI_Model
             [
                 'field' => 'fnik',
                 'label' => 'NIK',
+                'rules' => 'required'
+            ],
+            [
+                'field' => 'ftgl_join',
+                'label' => 'tanggal join',
                 'rules' => 'required'
             ],
             [
@@ -149,6 +161,8 @@ class Karyawan_m extends CI_Model
         $this->tgl_lahir = $post['ftgl_lahir'];
         $this->id_departemen = $post['fdepartemen'];
         $this->bpjs = $post['fbpjs'];
+        $this->bpjs_tk = $post['fbpjs_tk'];
+        $this->tgl_join = $post['ftgl_join'];
         $this->perusahaan = $post['fperusahaan'];
         $this->bagian = $post['fbagian'];
         $this->status = $post['fstatus'];
@@ -163,7 +177,9 @@ class Karyawan_m extends CI_Model
         $this->db->set('id_divisi', $post['fdivisi']);
         $this->db->set('tgl_lahir', $post['ftgl_lahir']);
         $this->db->set('id_departemen', $post['fdepartemen']);
+        $this->db->set('tgl_join', $post['ftgl_join']);
         $this->db->set('bpjs', $post['fbpjs']);
+        $this->db->set('bpjs_tk', $post['fbpjs_tk']);
         $this->db->set('perusahaan', $post['fperusahaan']);
         $this->db->set('bagian', $post['fbagian']);
         $this->db->set('status', $post['fstatus']);

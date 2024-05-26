@@ -110,11 +110,25 @@
                                 <?= form_error('fperusahaan') ?>
                             </div>
                         </div>
+                        <div class="form-group required">
+                            <label class="control-label" for="ftgl_join">Tanggal Join</label>
+                            <input type="date" class="form-control <?= form_error('ftgl_join') ? 'is-invalid' : '' ?>" id="ftgl_join" name="ftgl_join" placeholder="Tanggal join" value="<?= $this->input->post('ftgl_join'); ?>">
+                            <div class="invalid-feedback">
+                                <?= form_error('ftgl_join') ?>
+                            </div>
+                        </div>
                         <div class="form-group ">
-                            <label for="fbpjs">No BPJS</label>
-                            <input type="text" class="form-control <?= form_error('fbpjs') ? 'is-invalid' : '' ?>" id="fbpjs" name="fbpjs" placeholder="Nomor BPJS" value="<?= $this->input->post('fbpjs'); ?>">
+                            <label for="fbpjs">No BPJS Kesehatan</label>
+                            <input type="text" class="form-control <?= form_error('fbpjs') ? 'is-invalid' : '' ?>" id="fbpjs" name="fbpjs" placeholder="Nomor BPJS kesehatan" value="<?= $this->input->post('fbpjs'); ?>">
                             <div class="invalid-feedback">
                                 <?= form_error('fbpjs') ?>
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <label for="fbpjs">No BPJS Ketenagakerjaan</label>
+                            <input type="text" class="form-control <?= form_error('fbpjs_tk') ? 'is-invalid' : '' ?>" id="fbpjs_tk" name="fbpjs_tk" placeholder="Nomor BPJS ketenagakerjaan" value="<?= $this->input->post('fbpjs_tk'); ?>">
+                            <div class="invalid-feedback">
+                                <?= form_error('fbpjs_tk') ?>
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary float-right mt-2">Tambah</button>

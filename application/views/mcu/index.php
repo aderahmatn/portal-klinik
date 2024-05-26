@@ -76,7 +76,7 @@
                             <small id="flampiran" class="form-text text-muted">Format file harus .pdf
                                 maksimal 2Mb </small>
                         </div>
-                        <button type="submit" class="btn btn-primary float-right">Tambah</button>
+                        <button type="submit" class="btn btn-primary float-right">Simpan</button>
                     </form>
                 </div>
             </div>
@@ -150,7 +150,6 @@
 
                                                 <a href="javascript:;" data-id="<?= encrypt_url($key->id_mcu)  ?>" data-tglmcu="<?= $key->tgl_mcu ?>" data-idkaryawan="<?= encrypt_url($key->id_karyawan)  ?>" data-namakaryawan="<?= $key->nama_lengkap ?>" data-kesimpulan="<?= $key->kesimpulan ?>" data-saran="<?= $key->saran ?>" data-kategori="<?= $key->kategori_mcu ?>" data-toggle="modal" data-target="#edit-data" data-toggle="tooltip" title="EDIT DATA">
                                                     <button data-toggle="modal" data-target="#ubah-data" class="dropdown-item">
-
                                                         <div class="row">
                                                             <div class="col-2"><i class="fas fa-edit fa-sm"></i></div>
                                                             <div class="col">Edit Data</div>
@@ -167,16 +166,6 @@
 
                                             </div>
                                         </div>
-                                        <!-- </div>
-                                        <button href="#" onclick="showFile('<?= $key->nama_lengkap ?>','<?= $key->file_mcu ?>')" class="btn btn-info btn-xs px-1" data-toggle="tooltip" title="LIHAT FILE MCU"><i class="fas fa-file-pdf"></i></button>
-                                        <a href="javascript:;" data-id="<?= encrypt_url($key->id_mcu)  ?>" data-namakaryawan="<?= $key->nama_lengkap ?>" data-kesimpulan="<?= $key->kesimpulan ?>" data-saran="<?= $key->saran ?>" data-toggle="modal" data-target="#modal_detail" data-toggle="tooltip" title="LIHAT DETAIL">
-                                            <button data-toggle="modal" data-target="#ubah-data" class="btn btn-xs btn-success"><i class="fas fa-eye"></i></button>
-                                        </a>
-                                        <a href="javascript:;" data-id="<?= encrypt_url($key->id_mcu)  ?>" data-tglmcu="<?= $key->tgl_mcu ?>" data-idkaryawan="<?= encrypt_url($key->id_karyawan)  ?>" data-namakaryawan="<?= $key->nama_lengkap ?>" data-kesimpulan="<?= $key->kesimpulan ?>" data-saran="<?= $key->saran ?>" data-kategori="<?= $key->kategori_mcu ?>" data-toggle="modal" data-target="#edit-data" data-toggle="tooltip" title="EDIT DATA">
-                                            <button data-toggle="modal" data-target="#ubah-data" class="btn btn-xs btn-primary"><i class="fas fa-edit"></i></button>
-                                        </a>
-                                        <a href="#" class="btn btn-xs btn-danger" onclick="deleteConfirm('<?= base_url() . 'mcu/delete/' . encrypt_url($key->id_mcu) ?>')" data-toggle="tooltip" title="HAPUS DATA"><i class="fas fa-trash-alt"></i></a> -->
-
                                     </td>
                                     <!-- <td class="text-uppercase">
                                         <?= $key->kesimpulan ?>
@@ -434,6 +423,7 @@
                             <?= form_error('fkategori') ?>
                         </div>
                     </div>
+                    <a href="">Ganti file MCU</a>
                     <div class="modal-footer">
                         <button class="btn btn-default" type="button" data-dismiss="modal"> Batal</button>
                         <button id="btn-delete" class="btn btn-primary" type="submit"> Simpan</button>

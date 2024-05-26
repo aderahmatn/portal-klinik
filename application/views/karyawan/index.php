@@ -33,11 +33,13 @@
                                 <th>L/P</th>
                                 <th>TGL LAHIR</th>
                                 <th>PERUSAHAAN</th>
+                                <th>TGL JOIN</th>
                                 <th>DIVISI</th>
                                 <th>DEPT</th>
                                 <th>BAGIAN</th>
                                 <th>STATUS</th>
-                                <th>BPJS</th>
+                                <th>BPJS JKN</th>
+                                <th>BPJS TK</th>
                                 <th>OPSI</th>
                             </tr>
                         </thead>
@@ -67,6 +69,9 @@
                                         <?= $key->perusahaan ?>
                                     </td>
                                     <td>
+                                        <?= $key->tgl_join ?>
+                                    </td>
+                                    <td>
                                         <?= $key->nama_divisi ?>
                                     </td>
                                     <td>
@@ -80,6 +85,9 @@
                                     </td>
                                     <td>
                                         <?= $key->bpjs ?>
+                                    </td>
+                                    <td>
+                                        <?= $key->bpjs_tk ?>
                                     </td>
                                     <td>
                                         <a class="btn btn-xs btn-primary" href="<?= base_url('karyawan/update/') . $key->id_karyawan ?>">EDIT</a>
