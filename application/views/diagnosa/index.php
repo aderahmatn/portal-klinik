@@ -26,7 +26,8 @@
                             <tr>
 
                                 <th>DIAGNOSA</th>
-                                <th>JUMLAH PASSIEN</th>
+                                <th>TOTAL KUNJUNGAN</th>
+                                <th>TOTAL SKD</th>
                                 <th>OPSI</th>
                             </tr>
                         </thead>
@@ -42,7 +43,10 @@
 
                                     </td>
                                     <td class="text-uppercase">
-                                        <?= 12 ?>
+                                        <?= get_total_diagnosa_kunjungan($key->id_diagnosa) ?>
+                                    </td>
+                                    <td class="text-uppercase">
+                                        <?= 0 ?>
                                     </td>
 
                                     <td>

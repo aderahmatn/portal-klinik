@@ -232,7 +232,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label" for="diagnosa">Teraphy Obat </label><a href="" class="text-sm float-right"><i class="fas fa-edit fa-sm"></i> Edit Teraphy Obat</a>
+                        <label class="control-label" for="diagnosa">Teraphy Obat </label> <a id="link-obat" data-toggle="modal" data-target="#edit-obat" data-toggle="tooltip" title="EDIT DATA" href="#" class="text-sm float-right"><i class="fas fa-edit fa-sm"></i> Edit Teraphy Obat</a>
                         <div id="obat" class="text-uppercase"></div>
                     </div>
                     <div class="form-group">
@@ -264,137 +264,167 @@
             </div>
         </div>
     </div>
-    <!-- END Modal edit diagnosa -->
-    <!-- modal karyawan -->
-    <div class="modal fade" id="modal_karyawan">
-        <div class="modal-dialog modal-xl">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <p class="modal-title text-bold">PILIH KARYAWAN</p>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body" id="bodymodal_modal_project">
-                    <div class="card-body table-responsive-xs">
-                        <table id="tableKaryawan" class="display nowrap text-sm" style="width:100%">
-                            <thead>
-                                <tr>
-                                    <th>PILIH</th>
-                                    <th>NIK</th>
-                                    <th>NAMA</th>
-                                    <th>TGL LAHIR</th>
-                                    <th>USIA</th>
-                                    <th>BPJS</th>
-                                    <th>PERUSAHAAN</th>
-                                    <th>DIVISI</th>
-                                    <th>DEPT</th>
-                                    <th>STATUS</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php foreach ($karyawan as $key) : ?>
-                                    <tr class="text-uppercase">
-                                        <td style="width: 5px;"><button class="btn btn-primary btn-sm" id="select" data-id="<?= encrypt_url($key->id_karyawan)  ?>" data-nama="<?= $key->nama_lengkap ?>">
-                                                <i class="fa fa-check"></i> Pilih
-                                            </button>
-                                        </td>
+</div>
+<!-- END Modal edit diagnosa -->
+<!-- Modal edit obat -->
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" id="edit-obat" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <P class="modal-title">LIST TERAPHY OBAT</P>
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+            </div>
 
-                                        <td>
-                                            <?= strtoupper($key->nik) ?>
-                                        </td>
-                                        <td>
-                                            <?= strtoupper($key->nama_lengkap) ?>
-                                        </td>
-                                        <td>
-                                            <?= TanggalIndo($key->tgl_lahir)  ?>
-                                        </td>
-                                        <td>
-                                            <?= date('Y') - date('Y', strtotime($key->tgl_lahir))  ?>
-                                        </td>
-                                        <td>
-                                            <?= strtoupper($key->bpjs) ?>
-                                        </td>
-                                        <td>
-                                            <?= strtoupper($key->perusahaan)  ?>
-                                        </td>
-                                        <td>
-                                            <?= strtoupper($key->nama_divisi)  ?>
-                                        </td>
-                                        <td>
-                                            <?= strtoupper($key->nama_departemen)  ?>
-                                        </td>
-                                        <td>
-                                            <?= strtoupper($key->status)  ?>
-                                        </td>
-                                    </tr>
-                                <?php endforeach ?>
-                            </tbody>
-                        </table>
-                    </div>
+            <div class="modal-body " id="body-edit-obat">
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END Modal edit obat -->
+<!-- modal karyawan -->
+<div class="modal fade" id="modal_karyawan">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <p class="modal-title text-bold">PILIH KARYAWAN</p>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="bodymodal_modal_project">
+                <div class="card-body table-responsive-xs">
+                    <table id="tableKaryawan" class="display nowrap text-sm" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>PILIH</th>
+                                <th>NIK</th>
+                                <th>NAMA</th>
+                                <th>TGL LAHIR</th>
+                                <th>USIA</th>
+                                <th>BPJS</th>
+                                <th>PERUSAHAAN</th>
+                                <th>DIVISI</th>
+                                <th>DEPT</th>
+                                <th>STATUS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($karyawan as $key) : ?>
+                                <tr class="text-uppercase">
+                                    <td style="width: 5px;"><button class="btn btn-primary btn-sm" id="select" data-id="<?= encrypt_url($key->id_karyawan)  ?>" data-nama="<?= $key->nama_lengkap ?>">
+                                            <i class="fa fa-check"></i> Pilih
+                                        </button>
+                                    </td>
+
+                                    <td>
+                                        <?= strtoupper($key->nik) ?>
+                                    </td>
+                                    <td>
+                                        <?= strtoupper($key->nama_lengkap) ?>
+                                    </td>
+                                    <td>
+                                        <?= TanggalIndo($key->tgl_lahir)  ?>
+                                    </td>
+                                    <td>
+                                        <?= date('Y') - date('Y', strtotime($key->tgl_lahir))  ?>
+                                    </td>
+                                    <td>
+                                        <?= strtoupper($key->bpjs) ?>
+                                    </td>
+                                    <td>
+                                        <?= strtoupper($key->perusahaan)  ?>
+                                    </td>
+                                    <td>
+                                        <?= strtoupper($key->nama_divisi)  ?>
+                                    </td>
+                                    <td>
+                                        <?= strtoupper($key->nama_departemen)  ?>
+                                    </td>
+                                    <td>
+                                        <?= strtoupper($key->status)  ?>
+                                    </td>
+                                </tr>
+                            <?php endforeach ?>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
-    <!-- end modal karyawan -->
-    <script type="text/javascript">
-        function deleteConfirm(url) {
-            $('#btn-delete').attr('href', url);
-            $('#deleteModal').modal();
-        }
-        $(document).ready(function() {
-            $('#edit-data').on('show.bs.modal', function(event) {
-                var div = $(event.relatedTarget) // Tombol dimana modal di tampilkan
-                var modal = $(this)
-                var id = div.data('id');
-                modal.find('#fid_karyawan').val(div.data('idkaryawan'));
-                modal.find('#fid_kunjungan').val(div.data('id'));
-                modal.find('#fkaryawan').val(div.data('namakaryawan'));
-                modal.find('#fanamnesa').val(div.data('anamnesa'));
-                modal.find('#fjam_kunjungan').val(div.data('jam'));
-                modal.find('#ftgl_kunjungan').val(div.data('tgl'));
-                modal.find('#fcatatan_kunjungan').val(div.data('catatan'));
-                modal.find('#ftheraphy').val(div.data('teraphy'));
-                modal.find('#diagnosa').html(div.data('diagnosa'));
-                modal.find('#obat').html(div.data('obat'));
-                modal.find('#link-diagnosa').attr('onclick', `editDiagnosa('${id}')`);
+</div>
+<!-- end modal karyawan -->
+<script type="text/javascript">
+    function deleteConfirm(url) {
+        $('#btn-delete').attr('href', url);
+        $('#deleteModal').modal();
+    }
+    $(document).ready(function() {
+        $('#edit-data').on('show.bs.modal', function(event) {
+            var div = $(event.relatedTarget) // Tombol dimana modal di tampilkan
+            var modal = $(this)
+            var id = div.data('id');
+            modal.find('#fid_karyawan').val(div.data('idkaryawan'));
+            modal.find('#fid_kunjungan').val(div.data('id'));
+            modal.find('#fkaryawan').val(div.data('namakaryawan'));
+            modal.find('#fanamnesa').val(div.data('anamnesa'));
+            modal.find('#fjam_kunjungan').val(div.data('jam'));
+            modal.find('#ftgl_kunjungan').val(div.data('tgl'));
+            modal.find('#fcatatan_kunjungan').val(div.data('catatan'));
+            modal.find('#ftheraphy').val(div.data('teraphy'));
+            modal.find('#diagnosa').html(div.data('diagnosa'));
+            modal.find('#obat').html(div.data('obat'));
+            modal.find('#link-diagnosa').attr('onclick', `editDiagnosa('${id}')`);
+            modal.find('#link-obat').attr('onclick', `editObat('${id}')`);
 
 
-            });
-            $(document).on('click', '#select', function() {
-                var id = $(this).data('id');
-                var nama = $(this).data('nama');
-                $('#fid_karyawan').val(id)
-                $('#fkaryawan').val(nama.toUpperCase())
-                $('#modal_karyawan').modal('hide')
-            })
         });
+        $(document).on('click', '#select', function() {
+            var id = $(this).data('id');
+            var nama = $(this).data('nama');
+            $('#fid_karyawan').val(id)
+            $('#fkaryawan').val(nama.toUpperCase())
+            $('#modal_karyawan').modal('hide')
+        })
+    });
 
-        function onFocus() {
-            $('#modal_karyawan').modal('show')
-        }
+    function onFocus() {
+        $('#modal_karyawan').modal('show')
+    }
 
-        function getDetail(id) {
-            $.ajax({
-                type: "get",
-                url: "<?= site_url('kunjungan/detail/'); ?>" + id,
-                dataType: "html",
-                success: function(response) {
-                    $('#bodymodal_Detail').empty();
-                    $('#bodymodal_Detail').append(response);
-                }
-            });
-        }
+    function getDetail(id) {
+        $.ajax({
+            type: "get",
+            url: "<?= site_url('kunjungan/detail/'); ?>" + id,
+            dataType: "html",
+            success: function(response) {
+                $('#bodymodal_Detail').empty();
+                $('#bodymodal_Detail').append(response);
+            }
+        });
+    }
 
-        function editDiagnosa(idkunjungan) {
-            $.ajax({
-                type: "get",
-                url: "<?= site_url('kunjungan/edit_diagnosa/'); ?>" + idkunjungan,
-                dataType: "html",
-                success: function(response) {
-                    $('#body-edit-diagnosa').empty();
-                    $('#body-edit-diagnosa').append(response);
-                }
-            });
-        }
-    </script>
+    function editDiagnosa(idkunjungan) {
+        $.ajax({
+            type: "get",
+            url: "<?= site_url('kunjungan/edit_diagnosa/'); ?>" + idkunjungan,
+            dataType: "html",
+            success: function(response) {
+                $('#body-edit-diagnosa').empty();
+                $('#body-edit-diagnosa').append(response);
+            }
+        });
+    }
+
+    function editObat(idkunjungan) {
+        $.ajax({
+            type: "get",
+            url: "<?= site_url('kunjungan/edit_obat/'); ?>" + idkunjungan,
+            dataType: "html",
+            success: function(response) {
+                $('#body-edit-obat').empty();
+                $('#body-edit-obat').append(response);
+            }
+        });
+    }
+</script>

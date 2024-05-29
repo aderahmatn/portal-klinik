@@ -43,6 +43,18 @@ class Diagnosa_kunjungan_m extends CI_Model
         $this->db->where('id_diagnosa_kunjungan', $id);
         $this->db->update($this->_table);
     }
+    public function delete_diagnosa_by_id_kunjungan($id_kunjungan)
+    {
+        $this->db->set('deleted', 1);
+        $this->db->where('id_kunjungan', $id_kunjungan);
+        $this->db->update($this->_table);
+    }
+    public function get_total_diagnosa_kunjungan($id_diagnosa)
+    {
+        $this->db->where('deleted', 0);
+        $this->db->where('id_diagnosa', $id_diagnosa);
+        return $this->db->count_all_results('diagnosa_kunjungan');
+    }
 }
 
 /* End of file Jenis_pekerjaan_m.php */

@@ -34,12 +34,27 @@ class Obat_kunjungan_m extends CI_Model
         $this->db->where('id_obat_kunjungan', $id);
         $this->db->update($this->_table);
     }
-    // public function update_obat_kunjungan($post)
-    // {
-    //     $this->db->set('id_obat', $post['fobat']);
-    //     $this->db->where('id_obat', decrypt_url($post['fid_obat']));
-    //     $this->db->update($this->_table);
-    // }
+    public function delete_obat_by_id_kunjungan($id)
+    {
+        $this->db->set('deleted', 1);
+        $this->db->where('id_kunjungan', $id);
+        $this->db->update($this->_table);
+    }
+
+    public function get_total_obat_keluar($id_obat)
+    {
+        $this->db->select_sum('jumlah_keluar');
+        $this->db->where('obat_kunjungan.id_obat', $id_obat);
+        $this->db->where('obat_kunjungan.deleted', 0);
+        $this->db->from($this->_table);
+        $query = $this->db->get();
+        $total = $query->row()->jumlah_keluar;
+        if ($total != null) {
+            return  (int)$total;
+        } else {
+            return 0;
+        }
+    }
 }
 
 /* End of file Jenis_pekerjaan_m.php */

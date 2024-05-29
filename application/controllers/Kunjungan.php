@@ -12,17 +12,11 @@ class Kunjungan extends CI_Controller
         $this->load->helper(['diagnosa_kunjungan', 'obat_kunjungan']);
     }
 
-    // function test($id)
-    // {
-    //     // get_diagnosa_kunjungan_by_id_kunjungan($id);
-    //     $data = $this->Obat_kunjungan_m->get_obat_kunjungan_by_id_kunjungan($id);
-    //     foreach ($data as $key) {
-    //         echo '<p>' . $key->nama_obat . ' (' . $key->jumlah_keluar . ')' . '</p>';
-    //     }
-    //     // echo implode(" ", $data['1']);
-    //     var_dump($data);
-    //     // echo $data;
-    // }
+    function test($id_kunjungan)
+    {
+        $data = $this->Diagnosa_kunjungan_m->get_total_diagnosa_kunjungan($id_kunjungan);
+        var_dump($data);
+    }
     public function index()
     {
         $data['kunjungan'] = $this->Kunjungan_m->get_all_kunjungan();
@@ -51,11 +45,18 @@ class Kunjungan extends CI_Controller
                     $this->Diagnosa_kunjungan_m->add_diagnosa_kunjungan($this->input->post('fdiagnosa[' . $i . ']'), $id_kunjungan);
                 }
                 if ($this->db->affected_rows() > 0) {
-                    for ($i = 0; $i < $total_obat; $i++) {
-                        $this->Obat_kunjungan_m->add_obat_kunjungan($this->input->post('fid_obat[' . $i . ']'), $id_kunjungan, $this->input->post('fjumlah_obat[' . $i . ']'));
+                    if ($total_obat == 1 && $this->input->post('fid_obat[0]') == null) {
+                        $this->session->set_flashdata('success', 'Data kunjungan berhasil disimpan!');
+                        redirect('kunjungan', 'refresh');
+                    } else {
+                        for ($i = 0; $i < $total_obat; $i++) {
+                            $this->Obat_kunjungan_m->add_obat_kunjungan($this->input->post('fid_obat[' . $i . ']'), $id_kunjungan, $this->input->post('fjumlah_obat[' . $i . ']'));
+                        }
+                        if ($this->db->affected_rows() > 0) {
+                            $this->session->set_flashdata('success', 'Data kunjungan berhasil disimpan!');
+                            redirect('kunjungan', 'refresh');
+                        }
                     }
-                    $this->session->set_flashdata('success', 'Data kunjungan berhasil disimpan!');
-                    redirect('kunjungan', 'refresh');
                 } else {
                     $this->session->set_flashdata('warning', 'Data diagnosa gagal disimpan');
                     redirect('kunjungan/create', 'refresh');
@@ -70,8 +71,14 @@ class Kunjungan extends CI_Controller
     {
         $this->Kunjungan_m->delete_kunjungan(decrypt_url($id));
         if ($this->db->affected_rows() > 0) {
-            $this->session->set_flashdata('success', 'Data kunjungan berhasil dihapus!');
-            redirect('kunjungan', 'refresh');
+            $this->Obat_kunjungan_m->delete_obat_by_id_kunjungan(decrypt_url($id));
+            if ($this->db->affected_rows() > 0) {
+                $this->Diagnosa_kunjungan_m->delete_diagnosa_by_id_kunjungan(decrypt_url($id));
+                if ($this->db->affected_rows() > 0) {
+                    $this->session->set_flashdata('success', 'Data kunjungan berhasil dihapus!');
+                    redirect('kunjungan', 'refresh');
+                }
+            }
         }
     }
     public function delete_diagnosa($id)
@@ -79,6 +86,14 @@ class Kunjungan extends CI_Controller
         $this->Diagnosa_kunjungan_m->delete_diagnosa_kunjungan(decrypt_url($id));
         if ($this->db->affected_rows() > 0) {
             $this->session->set_flashdata('success', 'Data diagnosa kunjungan berhasil dihapus!');
+            redirect('kunjungan', 'refresh');
+        }
+    }
+    public function delete_obat($id)
+    {
+        $this->Obat_kunjungan_m->delete_obat_kunjungan(decrypt_url($id));
+        if ($this->db->affected_rows() > 0) {
+            $this->session->set_flashdata('success', 'Data teraphy obat berhasil dihapus!');
             redirect('kunjungan', 'refresh');
         }
     }
@@ -93,6 +108,13 @@ class Kunjungan extends CI_Controller
         $data['alldiagnosa'] = $this->Diagnosa_m->get_all_diagnosa();
         $data['diagnosa'] = $this->Diagnosa_kunjungan_m->get_all_diagnosa_kunjungan_by_id_kunjungan(decrypt_url($id));
         $this->load->view('kunjungan/edit_diagnosa', $data);
+    }
+    public function edit_obat($id)
+    {
+        $data['id_kunjungan'] = $id;
+        $data['allobat'] = $this->Obat_m->get_all_obat();
+        $data['obat'] = $this->Obat_kunjungan_m->get_obat_kunjungan_by_id_kunjungan(decrypt_url($id));
+        $this->load->view('kunjungan/edit_obat', $data);
     }
     public function update_kunjungan()
     {
@@ -117,6 +139,21 @@ class Kunjungan extends CI_Controller
             $this->session->set_flashdata('success', 'Data diagnosa kunjungan berhasil disimpan!');
             redirect('kunjungan', 'refresh');
         }
+    }
+    public function update_obat()
+    {
+        $total_obat = count($this->input->post('fid_obat'));
+        $id_kunjungan = decrypt_url($this->input->post('fid_kunjungan'));
+        for ($i = 0; $i < $total_obat; $i++) {
+            if ($this->input->post('fjumlah_obat[' . $i . ']') == null) {
+                $this->session->set_flashdata('error', 'Obat tidak tersedia');
+                redirect('kunjungan', 'refresh');
+            } else {
+                $this->Obat_kunjungan_m->add_obat_kunjungan($this->input->post('fid_obat[' . $i . ']'), $id_kunjungan, $this->input->post('fjumlah_obat[' . $i . ']'));
+            }
+        }
+        $this->session->set_flashdata('success', 'Data kunjungan berhasil disimpan!');
+        redirect('kunjungan', 'refresh');
     }
 }
 

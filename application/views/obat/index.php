@@ -37,10 +37,9 @@
                             $no = 1;
                             foreach ($obat as $key) : ?>
                                 <tr>
-                                    <td class="text-uppercase <?= get_stok_obat(encrypt_url($key->id_obat)) == 0 ? 'bg-danger' : '' ?> <?= get_stok_obat(encrypt_url($key->id_obat)) <= $key->minimum_stok ? 'bg-warning' : '' ?> <?= get_stok_obat(encrypt_url($key->id_obat)) > $key->minimum_stok ? 'bg-success' : '' ?> text-lg text-center">
+                                    <td class="text-uppercase <?= get_stok_obat(encrypt_url($key->id_obat)) - get_total_obat_keluar_kunjungan($key->id_obat) == 0 ? 'bg-danger' : '' ?> <?= get_stok_obat(encrypt_url($key->id_obat)) - get_total_obat_keluar_kunjungan($key->id_obat) <= $key->minimum_stok ? 'bg-warning' : '' ?> <?= get_stok_obat(encrypt_url($key->id_obat)) - get_total_obat_keluar_kunjungan($key->id_obat) > $key->minimum_stok ? 'bg-success' : '' ?> text-lg text-center">
 
-
-                                        <?= get_stok_obat(encrypt_url($key->id_obat)) ?>
+                                        <?= get_stok_obat(encrypt_url($key->id_obat)) - get_total_obat_keluar_kunjungan($key->id_obat) ?>
 
                                     </td>
                                     <td class="text-uppercase">

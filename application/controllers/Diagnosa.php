@@ -9,6 +9,7 @@ class Diagnosa extends CI_Controller
         parent::__construct();
         check_not_login();
         $this->load->model('Diagnosa_m');
+        $this->load->helper(['diagnosa_kunjungan']);
     }
 
     public function index()

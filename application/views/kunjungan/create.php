@@ -103,14 +103,14 @@
                                                     <option value="<?= $key->id_obat ?>"><?= strtoupper($key->nama_obat)  ?></option>
                                                 <?php endforeach ?>
                                             </select>
-                                            <div class="invalid-feedback">
-                                                <?= form_error('fid_obat[]') ?>
+                                            <div class="stok-text">
+
                                             </div>
                                         </div>
                                         <div class="col-md-4">
-                                            <input type="number" class="text-uppercase form-control" id="fjumlah_obat[]" name="fjumlah_obat[]" placeholder="Jumlah obat" min=1>
+                                            <input type="number" class="text-uppercase jumlah-obat form-control" id="fjumlah_obat[]" name="fjumlah_obat[]" placeholder="Jumlah obat" min=0 required readonly>
                                         </div>
-                                        <div class="col-md-2 align-content-center">
+                                        <div class="col-md-2 align-content-top">
                                             <button type="button" class="btn  btn-default align-center" id="addForm"><i class="fa fa-plus"></i> Field</button>
                                         </div>
                                     </div>
@@ -213,32 +213,98 @@
         $('.select-diagnosa').select2({
             placeholder: "PILIH DIAGNOSA",
         });
+
         $('.select-obat').select2({
             placeholder: "PILIH OBAT",
+            // templateSelection: function(data, container) {
+            //     // console.log(data.id)
+
+            // }
         });
+        $('.select-obat').on('change', function() {
+            var id_obat = $('.select-obat').val();
+            $('.jumlah-obat').attr('readonly', true)
+            getStokObatSelected(id_obat)
+        })
+
+        function getStokObatSelected(id_obat) {
+            $.ajax({
+                type: "get",
+                url: "<?= site_url('obat/get_stok_obat/'); ?>" + id_obat,
+                dataType: "html",
+                success: function(response) {
+                    console.log(response)
+                    var max = parseInt(response)
+                    $('.jumlah-obat').attr('max', max)
+                    $('.stok-text').empty()
+                    $('.stok-text').append(`<small class="form-text text-muted">SISA OBAT ${max}</small>`)
+                    if (max != 0) {
+                        $('.jumlah-obat').attr('readonly', false)
+                    } else {
+                        $('.jumlah-obat').attr('readonly', true)
+                    }
+
+                },
+                error: function(xhr, status, error) {
+                    alert(error)
+                }
+            });
+        }
+
+
         var i = 2;
         $("#addForm").on('click', function() {
             row = '<div class="row mb-2" id="item' + i + '">' +
-                '<div class="col-md-6"> <select class="form-control select-obat' + i + '<?= form_error('fid_obat[]') ? 'is-invalid' : '' ?>"id ="fid_obat[]" name = "fid_obat[]" >' +
+                '<div class="col-md-6"> <select class="form-control select-obat' + i + '<?= form_error('fid_obat[]') ? 'is-invalid' : '' ?>"id ="fid_obat[]" name = "fid_obat[]" required>' +
                 '<option></option>' +
                 '<?php foreach ($obat as $key) : ?>' +
                 '<option value = "<?= $key->id_obat ?>" > <?= strtoupper($key->nama_obat)  ?> </option>' +
                 '<?php endforeach ?>' +
                 '</select>' +
-                '<div class = "invalid-feedback">' +
-                '<?= form_error('fid_obat[]') ?>' +
-                '</div> </div>' +
+                '<div class="stok-text' + i + '">' +
+                '</div>' +
+                '</div>' +
                 '<div class="col-md-4">' +
-                '<input type="number" class="text-uppercase form-control <?= form_error('fanamnesa') ? 'is-invalid' : '' ?>" id = "fjumlah_obat[]" name = "fjumlah_obat[]" placeholder = "Jumlah obat"  min = 1>' +
+                '<input type="number" class="text-uppercase jumlah-obat' + i + ' form-control <?= form_error('fanamnesa') ? 'is-invalid' : '' ?>" id = "fjumlah_obat[]" name = "fjumlah_obat[]" placeholder = "Jumlah obat"  min = 0 required>' +
                 '<div class = "invalid-feedback" >' +
                 '<?= form_error('fjumlah_obat[]') ?>' +
                 '</div></div>' +
-                '<div class = "col-md-2 align-content-center">' +
+                '<div class = "col-md-2 align-content-top">' +
                 '<button type="button" class="btn btn-warning align-center btn_remove" id="' + i + '" > <i class="fa fa-minus"> </i> Field</button>'
             $(row).appendTo('#form_obat');
-            $('.select-obat' + i + '').select2({
+            $('.select-obat' + i).select2({
                 placeholder: "PILIH OBAT",
             });
+            $('.select-obat' + i + '').on('change', function() {
+                var i = 2
+                var id_obat = $('.select-obat' + i).val();
+                $('.jumlah-obat' + i).attr('readonly', true)
+                $.ajax({
+                    type: "get",
+                    url: "<?= site_url('obat/get_stok_obat/'); ?>" + id_obat,
+                    dataType: "html",
+                    success: function(response) {
+                        var i = 2
+                        var max = parseInt(response)
+                        $('.jumlah-obat' + i).attr('max', max)
+                        $('.stok-text' + i).empty()
+                        $('.stok-text' + i).append(`<small class="form-text text-muted">SISA OBAT ${max}</small>`)
+                        if (max != 0) {
+                            $('.jumlah-obat' + i).attr('readonly', false)
+                        } else {
+                            $('.jumlah-obat' + i).attr('readonly', true)
+                        }
+                        i++
+
+                    },
+                    error: function(xhr, status, error) {
+                        alert(error)
+                    }
+                });
+                i++
+            })
+
+
             i++
         })
         $(document).on('click', '.btn_remove', function() {

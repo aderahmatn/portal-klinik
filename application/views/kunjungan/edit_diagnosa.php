@@ -1,7 +1,7 @@
 <?php
 if ($diagnosa) {
     foreach ($diagnosa as $key) : ?>
-        <p class="m-1"> <span class="badge badge-warning text-uppercase"><?= $key->diagnosa ?> <a href="#" onclick="deleteDiagnosa('<?= encrypt_url($key->id_diagnosa_kunjungan) ?>')" class="btn btn-xs btn-danger ml-2" data-toggle="tooltip" title="HAPUS DIAGNOSA">delete</a></span></p>
+        <p class="m-1"> <span class="badge badge-warning text-uppercase"><?= $key->diagnosa  ?> <a href="#" onclick="deleteDiagnosa('<?= encrypt_url($key->id_diagnosa_kunjungan) ?>')" class="btn btn-xs btn-danger ml-2" data-toggle="tooltip" title="HAPUS DIAGNOSA">delete</a></span></p>
 
 <?php endforeach;
 } else {

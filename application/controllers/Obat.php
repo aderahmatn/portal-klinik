@@ -9,7 +9,7 @@ class Obat extends CI_Controller
         parent::__construct();
         check_not_login();
         $this->load->model(['Obat_m', 'Stok_obat_m']);
-        $this->load->helper('obat');
+        $this->load->helper(['obat', 'obat_kunjungan']);
     }
     public function index()
     {
@@ -31,8 +31,14 @@ class Obat extends CI_Controller
     }
     function test()
     {
-        $id = encrypt_url(6);
+        $id = encrypt_url(2);
         echo get_stok_obat($id);
+    }
+    public function get_stok_obat($id_obat)
+    {
+        $id = encrypt_url($id_obat);
+        $data = get_stok_obat($id) - get_total_obat_keluar_kunjungan($id_obat);
+        echo $data;
     }
     public function create()
     {
