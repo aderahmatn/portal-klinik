@@ -23,14 +23,13 @@ if ($obat) {
                             <option value="<?= $key->id_obat ?>"><?= strtoupper($key->nama_obat)  ?></option>
                         <?php endforeach ?>
                     </select>
-                    <div class="invalid-feedback">
-                        <?= form_error('fid_obat[]') ?>
+                    <div class="stok-text">
                     </div>
                 </div>
                 <div class="col-md-3">
                     <input type="number" class="text-uppercase jumlah-obat form-control" id="fjumlah_obat[]" name="fjumlah_obat[]" placeholder="Jumlah obat" min=0 required>
                 </div>
-                <div class="col-md-3 align-content-center">
+                <div class="col-md-3 align-content-top">
                     <button type="button" class="btn  btn-default align-center" id="addForm"><i class="fa fa-plus"></i> Field</button>
                 </div>
             </div>

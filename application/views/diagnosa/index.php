@@ -46,7 +46,7 @@
                                         <?= get_total_diagnosa_kunjungan($key->id_diagnosa) ?>
                                     </td>
                                     <td class="text-uppercase">
-                                        <?= 0 ?>
+                                        <?= get_total_diagnosa_skd($key->id_diagnosa) ?>
                                     </td>
 
                                     <td>

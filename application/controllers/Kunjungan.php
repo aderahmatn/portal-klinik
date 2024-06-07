@@ -12,11 +12,7 @@ class Kunjungan extends CI_Controller
         $this->load->helper(['diagnosa_kunjungan', 'obat_kunjungan']);
     }
 
-    function test($id_kunjungan)
-    {
-        $data = $this->Diagnosa_kunjungan_m->get_total_diagnosa_kunjungan($id_kunjungan);
-        var_dump($data);
-    }
+
     public function index()
     {
         $data['kunjungan'] = $this->Kunjungan_m->get_all_kunjungan();
