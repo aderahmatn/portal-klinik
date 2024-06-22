@@ -24,7 +24,7 @@
                                 </div>
                             </div><!-- /.container-fluid -->
                         </section>
-                        <form role="form" method="POST" action="" autocomplete="off">
+                        <form role="form" method="POST" action="" autocomplete="off" enctype="multipart/form-data">
                             <input type="hidden" name="<?= $this->security->get_csrf_token_name(); ?>" value="<?= $this->security->get_csrf_hash(); ?>" style="display: none">
                             <div class="field">
                                 <div class="form-group required">
@@ -107,8 +107,8 @@
                                     </div>
                                 </div>
                                 <div class="form-group required">
-                                    <label class="control-label" for="fjenis_penyakit">Jenis Penyakit</label>
-                                    <textarea name="fjenis_penyakit" class="form-control <?= form_error('fjenis_penyakit') ? 'is-invalid' : '' ?> text-uppercase" id="fjenis_penyakit" placeholder="Jenis Penyakit" style="text-transform:uppercase" required><?= $this->input->post('fjenis_penyakit'); ?></textarea>
+                                    <label class="control-label" for="fjenis_penyakit">Anamnesa</label>
+                                    <textarea name="fjenis_penyakit" class="form-control <?= form_error('fjenis_penyakit') ? 'is-invalid' : '' ?> text-uppercase" id="fjenis_penyakit" placeholder="anamnesa" style="text-transform:uppercase" required><?= $this->input->post('fjenis_penyakit'); ?></textarea>
                                     <div class="invalid-feedback">
                                         <?= form_error('fjenis_penyakit') ?>
                                     </div>
@@ -130,6 +130,12 @@
                                     <div class="invalid-feedback">
                                         <?= form_error('fcatatan_skd') ?>
                                     </div>
+                                </div>
+                                <div class="form-group required">
+                                    <label for="flampiran" class="control-label">Lampiran</label>
+                                    <input type="file" class="pb-4 form-control <?= form_error('flampiran') ? 'is-invalid' : '' ?>" id="flampiran" name="flampiran" required>
+                                    <small id="flampiran" class="form-text text-muted">Format file harus .pdf
+                                        maksimal 2Mb </small>
                                 </div>
                             </div>
                             <hr class="mt-5">
@@ -245,14 +251,14 @@
         var days = millisBetween / millisecondsPerDay;
 
         // Round down.
-        return Math.floor(days);
+        // return Math.floor(days);
+        return days;
     }
 
     $('#ftgl_akhir_skd').blur(function() {
         var start = $('#ftgl_mulai_skd').val().split('-');
         var end = $('#ftgl_akhir_skd').val().split('-');
-        console.log(daysBetween(start, end))
-        $('#fjumlah_hari_skd').val(daysBetween(start, end))
+        $('#fjumlah_hari_skd').val(daysBetween(start, end) + 1)
     })
 
     function onFocus() {

@@ -21,7 +21,13 @@ class Skd extends CI_Controller
     }
     public function create()
     {
-
+        // file config
+        $config['overwrite'] = false;
+        $config['upload_path'] = './uploads/skd/';
+        $config['allowed_types'] = 'pdf';
+        $config['max_size'] = 2048;
+        $this->load->library('upload', $config);
+        // end config
         $skd = $this->Skd_m;
         $validation = $this->form_validation;
         $validation->set_rules($skd->rules_skd());
@@ -30,24 +36,31 @@ class Skd extends CI_Controller
             $data['diagnosa'] = $this->Diagnosa_m->get_all_diagnosa();
             $this->template->load('shared/index', 'skd/create', $data);
         } else {
-            $post = $this->input->post(null, TRUE);
-            $skd->add_skd($post);
-            $id_skd = $this->db->insert_id();
-            $total = count($this->input->post('fdiagnosa'));
-            if ($this->db->affected_rows() > 0) {
-                for ($i = 0; $i < $total; $i++) {
-                    $this->Diagnosa_skd_m->add_diagnosa_skd($this->input->post('fdiagnosa[' . $i . ']'), $id_skd);
-                }
+            $this->load->library('upload', $config);
+            if (!$this->upload->do_upload('flampiran')) {
+                $this->session->set_flashdata('error', $this->upload->display_errors());
+                redirect($_SERVER['HTTP_REFERER']);
+            } else {
+                $post = $this->input->post(null, TRUE);
+                $file = $this->upload->data("file_name");
+                $skd->add_skd($post, $file);
+                $id_skd = $this->db->insert_id();
+                $total = count($this->input->post('fdiagnosa'));
                 if ($this->db->affected_rows() > 0) {
-                    $this->session->set_flashdata('success', 'Data skd berhasil disimpan!');
-                    redirect('skd', 'refresh');
+                    for ($i = 0; $i < $total; $i++) {
+                        $this->Diagnosa_skd_m->add_diagnosa_skd($this->input->post('fdiagnosa[' . $i . ']'), $id_skd);
+                    }
+                    if ($this->db->affected_rows() > 0) {
+                        $this->session->set_flashdata('success', 'Data skd berhasil disimpan!');
+                        redirect('skd', 'refresh');
+                    } else {
+                        $this->session->set_flashdata('warning', 'Data diagnosa gagal disimpan');
+                        redirect('skd/create', 'refresh');
+                    }
                 } else {
-                    $this->session->set_flashdata('warning', 'Data diagnosa gagal disimpan');
+                    $this->session->set_flashdata('warning', 'Data skd tidak berhasil disimpan!');
                     redirect('skd/create', 'refresh');
                 }
-            } else {
-                $this->session->set_flashdata('warning', 'Data skd tidak berhasil disimpan!');
-                redirect('skd/create', 'refresh');
             }
         }
     }
@@ -89,6 +102,37 @@ class Skd extends CI_Controller
         $data['alldiagnosa'] = $this->Diagnosa_m->get_all_diagnosa();
         $data['diagnosa'] = $this->Diagnosa_skd_m->get_all_diagnosa_skd_by_id_skd(decrypt_url($id));
         $this->load->view('skd/edit_diagnosa', $data);
+    }
+    public function edit_lampiran($id)
+    {
+        $data['id_skd'] = $id;
+        $this->load->view('skd/edit_lampiran', $data);
+    }
+    public function update_lampiran()
+    {
+        // file config
+        $config['overwrite'] = false;
+        $config['upload_path'] = './uploads/skd/';
+        $config['allowed_types'] = 'pdf';
+        $config['max_size'] = 2048;
+        $this->load->library('upload', $config);
+        // end config
+        $id_skd = decrypt_url($this->input->post('fid_skd'));
+        $this->load->library('upload', $config);
+        if (!$this->upload->do_upload('flampiran')) {
+            $this->session->set_flashdata('error', $this->upload->display_errors());
+            redirect($_SERVER['HTTP_REFERER']);
+        } else {
+            $file = $this->upload->data("file_name");
+            $this->Skd_m->update_lampiran($id_skd, $file);
+            if ($this->db->affected_rows() > 0) {
+                $this->session->set_flashdata('success', 'Lampiran berhasil diganti!');
+                redirect('skd', 'refresh');
+            } else {
+                $this->session->set_flashdata('warning', 'Lampiran gagal diganti!');
+                redirect('skd', 'refresh');
+            }
+        }
     }
     public function update_skd()
     {

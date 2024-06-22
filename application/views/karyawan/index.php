@@ -90,7 +90,8 @@
                                         <?= $key->bpjs_tk ?>
                                     </td>
                                     <td>
-                                        <a class="btn btn-xs btn-primary" href="<?= base_url('karyawan/update/') . $key->id_karyawan ?>">EDIT</a>
+                                        <a class="btn btn-xs btn-primary" href="<?= base_url('karyawan/detail/') . encrypt_url($key->id_karyawan) ?>">LIHAT DETAIL</a>
+                                        <a class="btn btn-xs btn-primary" href="<?= base_url('karyawan/update/') . encrypt_url($key->id_karyawan)  ?>">EDIT</a>
                                         <a href="#" class="btn btn-xs btn-danger" onclick="deleteConfirm('<?= base_url() . 'karyawan/delete/' . encrypt_url($key->id_karyawan) ?>')">DELETE</a>
                                     </td>
                                 </tr>

@@ -92,3 +92,10 @@ function indoSQL($date)
 
     return $tahun . '-' . bulanindoSQL($bulan) . '-' . $hari;
 }
+function NumberWeek($tgl)
+{
+
+    $date = new DateTime($tgl);
+    $week = $date->format("W");
+    return 'Week ' . $week;
+}

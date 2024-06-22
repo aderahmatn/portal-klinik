@@ -15,6 +15,7 @@ class Skd_m extends CI_Model
     public $tgl_penyerahan;
     public $status_skd;
     public $catatan_skd;
+    public $lampiran;
     public $deleted;
 
     public function rules_skd()
@@ -97,7 +98,7 @@ class Skd_m extends CI_Model
         return $query->row();
     }
 
-    public function add_skd()
+    public function add_skd($post, $file)
     {
         $post = $this->input->post();
         $this->created_date = date('Y-m-d');
@@ -111,6 +112,7 @@ class Skd_m extends CI_Model
         $this->faskes = $post['ffaskes'];
         $this->tgl_penyerahan = $post['ftgl_penyerahan'];
         $this->status_skd = $post['fstatus_skd'];
+        $this->lampiran = $file;
         $this->catatan_skd = $post['fcatatan_skd'];
         $this->deleted = 0;
         $this->db->insert($this->_table, $this);
@@ -136,6 +138,12 @@ class Skd_m extends CI_Model
         $this->db->set('status_skd', $post['fstatus_skd']);
         $this->db->set('catatan_skd', $post['fcatatan_skd']);
         $this->db->where('id_skd', decrypt_url($post['fid_skd']));
+        $this->db->update($this->_table);
+    }
+    public function update_lampiran($id_skd, $file)
+    {
+        $this->db->set('lampiran', $file);
+        $this->db->where('id_skd', $id_skd);
         $this->db->update($this->_table);
     }
 }

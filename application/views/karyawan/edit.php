@@ -129,7 +129,7 @@
                                     <?= form_error('fbpjs_tk') ?>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary float-right mt-2">Tambah</button>
+                            <button type="submit" class="btn btn-primary float-right mt-2">Simpan</button>
                             <a href="<?= base_url('karyawan') ?>" class="btn btn-secondary float-left mt-2">Batal</a>
                         </form>
                     </div>

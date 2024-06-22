@@ -10,7 +10,7 @@
     <div class="col-sm-1 align-content-center">
         <div class="float-sm-right align-content-center">
             <button aria-hidden="true" data-dismiss="modal" class="close btn-lg" type="button" style="font-size: 1.8rem;">×</button>
-            <!-- <img src="<?= base_url() . 'assets/images/skd.png' ?>" alt="Responsive image" height="50px"> -->
+
         </div>
     </div>
 </div>
@@ -83,10 +83,17 @@
         <p class="text-muted">
             <?= $skd->catatan_skd ?>
         </p>
+        <hr class="m-1">
+        <strong> Lampiran </strong>
+        <p class="link">
+            <a href="#" type="button" onclick="showFile('<?= $skd->lampiran ?>')" data-toggle="tooltip" title="LIHAT FILE MCU">
+                <i class="far fa-file-pdf  mr-1"></i> <?= $skd->lampiran ?>
+            </a>
+        </p>
 
     </div>
     <div class="col-md-6 pb-3">
-        <strong> Jenis penyakit</strong>
+        <strong>Anamnesa</strong>
         <p class="text-muted">
             <?= $skd->jenis_penyakit ?>
         </p>

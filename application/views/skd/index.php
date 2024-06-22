@@ -119,7 +119,7 @@
 
                                                     </button>
                                                 </a>
-                                                <a href="javascript:;" data-id="<?= encrypt_url($key->id_skd)  ?>" data-tglmulai="<?= $key->tgl_mulai_skd ?>" data-tglakhir="<?= $key->tgl_akhir_skd ?>" data-tglpenyerahan="<?= $key->tgl_penyerahan ?>" data-jumlah="<?= $key->jumlah_hari ?>" data-pembayaran="<?= $key->pembayaran ?>" data-idkaryawan="<?= encrypt_url($key->id_karyawan) ?>" data-namakaryawan="<?= $key->nama_lengkap ?>" data-namakaryawan="<?= $key->nama_lengkap ?>" data-penyakit="<?= $key->jenis_penyakit ?>" data-note="<?= $key->catatan_skd ?>" data-status="<?= $key->status_skd ?>" data-faskes="<?= $key->faskes ?>" data-catatan="<?= $key->catatan_skd ?>" data-diagnosa='<?= get_diagnosa_skd_by_id_skd($key->id_skd) ?>' data-toggle="modal" data-target="#edit-data" data-toggle="tooltip" title="EDIT DATA">
+                                                <a href="javascript:;" data-id="<?= encrypt_url($key->id_skd)  ?>" data-tglmulai="<?= $key->tgl_mulai_skd ?>" data-tglakhir="<?= $key->tgl_akhir_skd ?>" data-tglpenyerahan="<?= $key->tgl_penyerahan ?>" data-jumlah="<?= $key->jumlah_hari ?>" data-pembayaran="<?= $key->pembayaran ?>" data-idkaryawan="<?= encrypt_url($key->id_karyawan) ?>" data-namakaryawan="<?= $key->nama_lengkap ?>" data-namakaryawan="<?= $key->nama_lengkap ?>" data-penyakit="<?= $key->jenis_penyakit ?>" data-note="<?= $key->catatan_skd ?>" data-lampiran="<?= $key->lampiran ?>" data-status="<?= $key->status_skd ?>" data-faskes="<?= $key->faskes ?>" data-catatan="<?= $key->catatan_skd ?>" data-diagnosa='<?= get_diagnosa_skd_by_id_skd($key->id_skd) ?>' data-toggle="modal" data-target="#edit-data" data-toggle="tooltip" title="EDIT DATA">
                                                     <button data-toggle="modal" data-target="#ubah-data" class="dropdown-item">
                                                         <div class="row">
                                                             <div class="col-2"><i class="fas fa-edit fa-sm"></i></div>
@@ -144,6 +144,7 @@
             </div>
         </div>
     </div>
+
 </section>
 
 <!--Delete Confirmation-->
@@ -181,10 +182,9 @@
     </div>
 </div>
 <!-- END Modal detail -->
-
 <!-- Modal Ubah -->
 <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" id="edit-data" class="modal fade">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <P class="modal-title">EDIT DATA SKD</P>
@@ -193,28 +193,36 @@
             <form class="form-horizontal" action="<?= base_url('skd/update_skd') ?>" method="post" enctype="multipart/form-data" role="form">
                 <div class="modal-body">
                     <input type="hidden" id="fid_skd" name="fid_skd" value="<?= $this->input->post('fid_skd'); ?>">
-                    <div class="form-group required">
-                        <label class="control-label" for="ftgl_penyerahan">Tanggal Penyerahan SKD</label>
-                        <input type="date" class="form-control <?= form_error('ftgl_penyerahan') ? 'is-invalid' : '' ?>" id="ftgl_penyerahan" name="ftgl_penyerahan" placeholder="Tanggal penyerahan" value="<?= date('Y') . '-' . date('m') . '-' . date('d') ?>" required>
-                        <div class="invalid-feedback">
-                            <?= form_error('ftgl_penyerahan') ?>
-                        </div>
-                    </div>
-                    <div class="form-group required">
-                        <input type="hidden" id="fid_karyawan" name="fid_karyawan" value="<?= $this->input->post('fid_karyawan') ?>">
-                        <label class="control-label" for="fkaryawan">Nama Karyawan</label>
-                        <div class="input-group ">
-                            <input type="text" class="text-uppercase form-control <?php echo form_error('fkaryawan') ? 'is-invalid' : '' ?>" id="fkaryawan" name="fkaryawan" onfocus="onFocus()" placeholder="Pilih Karyawan" autocomplete="off" value="<?= $this->input->post('fkaryawan') ?>" required>
-                            <span class="input-group-append">
-                                <button type="button" class="btn btn-default " data-toggle="modal" data-target="#modal_karyawan"><i class="fas fa-search"></i></button>
-                            </span>
-                        </div>
-                        <span class="text-xs text-red">
-                            <?= form_error('fkaryawan') ?>
-                        </span>
-                    </div>
                     <div class="row">
-                        <div class="col">
+                        <div class="col-md-6">
+                            <div class="form-group required">
+                                <label class="control-label" for="ftgl_penyerahan">Tanggal Penyerahan SKD</label>
+                                <input type="date" class="form-control <?= form_error('ftgl_penyerahan') ? 'is-invalid' : '' ?>" id="ftgl_penyerahan" name="ftgl_penyerahan" placeholder="Tanggal penyerahan" value="<?= date('Y') . '-' . date('m') . '-' . date('d') ?>" required>
+                                <div class="invalid-feedback">
+                                    <?= form_error('ftgl_penyerahan') ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group required">
+                                <input type="hidden" id="fid_karyawan" name="fid_karyawan" value="<?= $this->input->post('fid_karyawan') ?>">
+                                <label class="control-label" for="fkaryawan">Nama Karyawan</label>
+                                <div class="input-group ">
+                                    <input type="text" class="text-uppercase form-control <?php echo form_error('fkaryawan') ? 'is-invalid' : '' ?>" id="fkaryawan" name="fkaryawan" onfocus="onFocus()" placeholder="Pilih Karyawan" autocomplete="off" value="<?= $this->input->post('fkaryawan') ?>" required>
+                                    <span class="input-group-append">
+                                        <button type="button" class="btn btn-default " data-toggle="modal" data-target="#modal_karyawan"><i class="fas fa-search"></i></button>
+                                    </span>
+                                </div>
+                                <span class="text-xs text-red">
+                                    <?= form_error('fkaryawan') ?>
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
                             <div class="form-group required">
                                 <label class="control-label" for="ftgl_mulai_skd">Tanggal Mulai SKD</label>
                                 <input type="date" class="form-control <?= form_error('ftgl_mulai_skd') ? 'is-invalid' : '' ?>" id="ftgl_mulai_skd" name="ftgl_mulai_skd" placeholder="Tanggal skd" value="<?= $this->input->post('ftgl_mulai_skd') ?>" required>
@@ -223,7 +231,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col">
+                        <div class="col-md-4">
                             <div class="form-group required">
                                 <label class="control-label" for="ftgl_akhir_skd">Tanggal Akhir SKD</label>
                                 <input type="date" class="form-control <?= form_error('ftgl_akhir_skd') ? 'is-invalid' : '' ?>" id="ftgl_akhir_skd" name="ftgl_akhir_skd" placeholder="Tanggal skd" value="<?= $this->input->post('ftgl_akhir_skd') ?>" required>
@@ -232,62 +240,92 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="form-group required">
-                        <label class="control-label" for="fjumlah_hari_skd">Jumlah Hari SKD</label>
-                        <input type="number" class="form-control <?= form_error('fjumlah_hari_skd') ? 'is-invalid' : '' ?>" id="fjumlah_hari_skd" name="fjumlah_hari_skd" placeholder="JUMLAH HARI SKD" value="<?= $this->input->post('fjumlah_hari_skd') ?>" min="1" required>
-                        <div class="invalid-feedback">
-                            <?= form_error('fjumlah_hari_skd') ?>
+                        <div class="col-md-4">
+                            <div class="form-group required">
+                                <label class="control-label" for="fjumlah_hari_skd">Jumlah Hari SKD</label>
+                                <input type="number" class="form-control <?= form_error('fjumlah_hari_skd') ? 'is-invalid' : '' ?>" id="fjumlah_hari_skd" name="fjumlah_hari_skd" placeholder="JUMLAH HARI SKD" value="<?= $this->input->post('fjumlah_hari_skd') ?>" min="1" required>
+                                <div class="invalid-feedback">
+                                    <?= form_error('fjumlah_hari_skd') ?>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group required">
-                        <label class="control-label" for="ffaskes">Nama Fasilitas Kesehatan</label>
-                        <input type="text" class="text-uppercase form-control <?= form_error('ffaskes') ? 'is-invalid' : '' ?>" id="ffaskes" name="ffaskes" placeholder="NAMA FASKES" value="<?= $this->input->post('ffaskes') ?>" required>
-                        <div class="invalid-feedback">
-                            <?= form_error('ffaskes') ?>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group required">
+                                <label class="control-label" for="ffaskes">Nama Fasilitas Kesehatan</label>
+                                <input type="text" class="text-uppercase form-control <?= form_error('ffaskes') ? 'is-invalid' : '' ?>" id="ffaskes" name="ffaskes" placeholder="NAMA FASKES" value="<?= $this->input->post('ffaskes') ?>" required>
+                                <div class="invalid-feedback">
+                                    <?= form_error('ffaskes') ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group required">
+                                <label class="control-label" for="fpembayaran">Pembayaran Berobat</label>
+                                <select class="form-control  <?php echo form_error('fpembayaran') ? 'is-invalid' : '' ?>" id="fpembayaran" name="fpembayaran" required>
+                                    <option hidden value="" selected>PILIH PEMBAYARAN</option>
+                                    <option value="BPJS" <?= $this->input->post('fpembayaran') == 'BPJS' ? 'selected' : '' ?>>BPJS</option>
+                                    <option value="BPJS TK" <?= $this->input->post('fpembayaran') == 'BPJS TK' ? 'selected' : '' ?>>BPJS TK</option>
+                                    <option value="NON BPJS" <?= $this->input->post('fpembayaran') == 'NON BPJS' ? 'selected' : '' ?>>NON BPJS</option>
+                                    <option value="ASURANSI" <?= $this->input->post('fpembayaran') == 'ASURANSI' ? 'selected' : '' ?>>ASURANSI</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <?= form_error('fpembayaran') ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group required">
+                                <label class="control-label" for="fstatus_skd">Status SKD</label>
+                                <select class="form-control  <?php echo form_error('fstatus_skd') ? 'is-invalid' : '' ?>" id="fstatus_skd" name="fstatus_skd" required>
+                                    <option hidden value="" selected>PILIH STATUS</option>
+                                    <option value="ACC">ACC</option>
+                                    <option value="TIDAK ACC">TIDAK ACC</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <?= form_error('fstatus_skd') ?>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group required">
-                        <label class="control-label" for="fpembayaran">Pembayaran Berobat</label>
-                        <select class="form-control  <?php echo form_error('fpembayaran') ? 'is-invalid' : '' ?>" id="fpembayaran" name="fpembayaran" required>
-                            <option hidden value="" selected>PILIH PEMBAYARAN</option>
-                            <option value="BPJS" <?= $this->input->post('fpembayaran') == 'BPJS' ? 'selected' : '' ?>>BPJS</option>
-                            <option value="BPJS TK" <?= $this->input->post('fpembayaran') == 'BPJS TK' ? 'selected' : '' ?>>BPJS TK</option>
-                            <option value="NON BPJS" <?= $this->input->post('fpembayaran') == 'NON BPJS' ? 'selected' : '' ?>>NON BPJS</option>
-                            <option value="ASURANSI" <?= $this->input->post('fpembayaran') == 'ASURANSI' ? 'selected' : '' ?>>ASURANSI</option>
-                        </select>
-                        <div class="invalid-feedback">
-                            <?= form_error('fpembayaran') ?>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group required">
+                                <label class="control-label" for="fjenis_penyakit">Anamnesa</label>
+                                <textarea name="fjenis_penyakit" class="form-control <?= form_error('fjenis_penyakit') ? 'is-invalid' : '' ?> text-uppercase" id="fjenis_penyakit" placeholder="Anamnesa" style="text-transform:uppercase" required><?= $this->input->post('fjenis_penyakit'); ?></textarea>
+                                <div class="invalid-feedback">
+                                    <?= form_error('fjenis_penyakit') ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group ">
+                                <label class="control-label" for="fcatatan_skd">Catatan SKD</label>
+                                <textarea name="fcatatan_skd" class="form-control <?= form_error('fcatatan_skd') ? 'is-invalid' : '' ?> text-uppercase" id="fcatatan_skd" placeholder="Catatan" style="text-transform:uppercase"><?= $this->input->post('fcatatan_skd'); ?></textarea>
+                                <div class="invalid-feedback">
+                                    <?= form_error('fcatatan_skd') ?>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group required">
-                        <label class="control-label" for="fjenis_penyakit">Jenis Penyakit</label>
-                        <textarea name="fjenis_penyakit" class="form-control <?= form_error('fjenis_penyakit') ? 'is-invalid' : '' ?> text-uppercase" id="fjenis_penyakit" placeholder="Jenis Penyakit" style="text-transform:uppercase" required><?= $this->input->post('fjenis_penyakit'); ?></textarea>
-                        <div class="invalid-feedback">
-                            <?= form_error('fjenis_penyakit') ?>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label" for="diagnosa">Diagnosa </label><a id="link-diagnosa" data-toggle="modal" data-target="#edit-diagnosa" data-toggle="tooltip" title="EDIT DATA" href="#" class="text-sm ml-2">[Edit Diagnosa]</a>
+                                <div id="diagnosa" class="text-uppercase"></div>
+
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group required">
-                        <label class="control-label" for="fstatus_skd">Status SKD</label>
-                        <select class="form-control  <?php echo form_error('fstatus_skd') ? 'is-invalid' : '' ?>" id="fstatus_skd" name="fstatus_skd" required>
-                            <option hidden value="" selected>PILIH STATUS</option>
-                            <option value="ACC">ACC</option>
-                            <option value="TIDAK ACC">TIDAK ACC</option>
-                        </select>
-                        <div class="invalid-feedback">
-                            <?= form_error('fstatus_skd') ?>
+                        <div class="col-md-6">
+                            <div class="form-group">
+
+                                <label class="control-label" for="diagnosa">Lampiran </label><a id="link-lampiran" data-toggle="modal" data-target="#edit-lampiran" data-toggle="tooltip" title="EDIT DATA" href="#" class="text-sm ml-2">[Edit Lampiran]</a>
+                                <div id='lampiran'></div>
+
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group ">
-                        <label class="control-label" for="fcatatan_skd">Catatan SKD</label>
-                        <textarea name="fcatatan_skd" class="form-control <?= form_error('fcatatan_skd') ? 'is-invalid' : '' ?> text-uppercase" id="fcatatan_skd" placeholder="Catatan" style="text-transform:uppercase"><?= $this->input->post('fcatatan_skd'); ?></textarea>
-                        <div class="invalid-feedback">
-                            <?= form_error('fcatatan_skd') ?>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label" for="diagnosa">Diagnosa </label><a id="link-diagnosa" data-toggle="modal" data-target="#edit-diagnosa" data-toggle="tooltip" title="EDIT DATA" href="#" class="text-sm float-right"><i class="fas fa-edit fa-sm"></i> Edit Diagnosa</a>
-                        <div id="diagnosa" class="text-uppercase"></div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -297,7 +335,6 @@
         </div>
     </div>
     </form>
-</div>
 </div>
 <!-- END Modal Ubah -->
 <!-- Modal edit diagnosa -->
@@ -316,6 +353,22 @@
     </div>
 </div>
 <!-- END Modal edit diagnosa -->
+<!-- Modal edit lampiran -->
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" id="edit-lampiran" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <P class="modal-title">EDIT LAMPIRAN </P>
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+            </div>
+
+            <div class="modal-body " id="body-edit-lampiran">
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END Modal edit lampiran -->
 <!-- modal karyawan -->
 <div class="modal fade" id="modal_karyawan">
     <div class="modal-dialog modal-xl">
@@ -388,11 +441,38 @@
     </div>
 </div>
 <!-- end modal karyawan -->
+<!-- Modal PDF -->
+<div class="modal fade" id="modal_pdf" style="z-index : 10040 !important;">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <P class="modal-title">LAMPIRAN SKD</P>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="bodymodal_modal_pdf">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modal PDF -->
+
 <script type="text/javascript">
+    function showFile(file) {
+        $('#modal_pdf').modal('show')
+        $(`<embed type="application/pdf" src="<?= base_url("uploads/skd/") ?>${file}" width="100%" height="650"></embed>`).appendTo('#bodymodal_modal_pdf')
+    }
+    $('#modal_pdf').on('hidden.bs.modal', function(e) {
+        $('#nama').empty()
+        $('#bodymodal_modal_pdf').empty()
+    });
+
     function deleteConfirm(url) {
         $('#btn-delete').attr('href', url);
         $('#deleteModal').modal();
     }
+
     $(document).ready(function() {
         $('#edit-data').on('show.bs.modal', function(event) {
             var div = $(event.relatedTarget) // Tombol dimana modal di tampilkan
@@ -411,7 +491,11 @@
             modal.find('#fcatatan_skd').val(div.data('note'));
             modal.find('#fstatus_skd').val(div.data('status'));
             modal.find('#diagnosa').html(div.data('diagnosa'));
+            modal.find('#lampiran').html(`<a href="#" type="button" onclick="showFile('${div.data('lampiran')}')" data-toggle="tooltip" title="LIHAT FILE MCU">
+                <i class="far fa-file-pdf  mr-1"></i> ${div.data('lampiran')}
+            </a>`);
             modal.find('#link-diagnosa').attr('onclick', `editDiagnosa('${id}')`);
+            modal.find('#link-lampiran').attr('onclick', `editLampiran('${id}')`);
 
         });
         $(document).on('click', '#select', function() {
@@ -463,6 +547,8 @@
         $('#fjumlah_hari_skd').val(daysBetween(start, end))
     })
 
+
+
     function editDiagnosa(idSkd) {
         $.ajax({
             type: "get",
@@ -471,6 +557,18 @@
             success: function(response) {
                 $('#body-edit-diagnosa').empty();
                 $('#body-edit-diagnosa').append(response);
+            }
+        });
+    }
+
+    function editLampiran(idSkd) {
+        $.ajax({
+            type: "get",
+            url: "<?= site_url('skd/edit_lampiran/'); ?>" + idSkd,
+            dataType: "html",
+            success: function(response) {
+                $('#body-edit-lampiran').empty();
+                $('#body-edit-lampiran').append(response);
             }
         });
     }

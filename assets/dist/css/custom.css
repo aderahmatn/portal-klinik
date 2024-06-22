@@ -31,6 +31,13 @@ margin-bottom: 1rem;
 background: #63c4d7;
 background: linear-gradient(72deg, rgba(25,109,180,1) 0%, #63c4d7 44%);
 }
+.content-header-detail{
+margin-left: 7.5px;
+margin-right: 7.5px;
+margin-bottom: 1rem;
+background: #63c4d7;
+background: linear-gradient(78deg, rgba(25,109,180,1) 0%, #63c4d7 44%);
+}
 
 .img-header{
 	width: 200px;

@@ -15,6 +15,11 @@ class Karyawan extends CI_Controller
         $data['karyawan'] = $this->Karyawan_m->get_all_karyawan();
         $this->template->load('shared/index', 'karyawan/index', $data);
     }
+    public function detail($id)
+    {
+        $data['karyawan'] = $this->Karyawan_m->get_by_id_karyawan(decrypt_url($id));
+        $this->template->load('shared/index', 'karyawan/detail', $data);
+    }
     public function divisi()
     {
         $divisi = $this->Divisi_m;
@@ -72,7 +77,7 @@ class Karyawan extends CI_Controller
                 redirect('karyawan', 'refresh');
             }
         }
-        $data['data'] = $this->Karyawan_m->get_by_id_karyawan($id);
+        $data['data'] = $this->Karyawan_m->get_by_id_karyawan(decrypt_url($id));
         if (!$data['data']) {
             $this->session->set_flashdata('error', 'Data tidak ditemukan!');
             // redirect('karyawan', 'refresh');

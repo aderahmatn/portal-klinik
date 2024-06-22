@@ -255,7 +255,7 @@
     </div>
 </div>
 <!-- end modal karyawan -->
-
+<!-- Modal PDF -->
 <div class="modal fade" id="modal_pdf">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
@@ -270,6 +270,7 @@
         </div>
     </div>
 </div>
+<!-- end Modal PDF -->
 <!--Delete Confirmation-->
 <div class="modal fade" id="deleteModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
