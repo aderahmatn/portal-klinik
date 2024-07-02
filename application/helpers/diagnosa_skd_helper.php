@@ -15,3 +15,10 @@ function get_total_diagnosa_skd($id_diagnosa)
     $data = $CI->Diagnosa_skd_m->get_total_diagnosa_skd($id_diagnosa);
     return $data;
 }
+function get_diagnosa_kunjungan_by_id_skd_text($id_skd)
+{
+    $CI = &get_instance();
+    $CI->load->model('Diagnosa_skd_m');
+    $data = $CI->Diagnosa_skd_m->get_diagnosa_skd_by_id_skd($id_skd);
+    return implode(', ', array_column($data, 'diagnosa'));
+}

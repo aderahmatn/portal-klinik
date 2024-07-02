@@ -69,7 +69,6 @@ class Skd_m extends CI_Model
 
         ];
     }
-
     public function get_all_skd()
     {
         $this->db->select('*');
@@ -83,7 +82,49 @@ class Skd_m extends CI_Model
         $query = $this->db->get();
         return $query->result();
     }
-
+    public function get_all_skd_by_filter(
+        $tgl_awal,
+        $tgl_akhir,
+        $divisi,
+        $departemen,
+        $status,
+        $karyawan,
+        $diagnosa,
+        $status_skd,
+    ) {
+        $this->db->select('*');
+        $this->db->where('skd.deleted', 0);
+        $this->db->join('karyawan', 'karyawan.id_karyawan = skd.id_karyawan', 'left');
+        $this->db->join('user', 'user.id_user = skd.id_user', 'left');
+        $this->db->join('divisi', 'karyawan.id_divisi = divisi.id_divisi', 'left');
+        $this->db->join('departemen', 'karyawan.id_departemen = departemen.id_departemen', 'left');
+        $this->db->join('diagnosa_skd', 'diagnosa_skd.id_skd = skd.id_skd', 'left');
+        $this->db->order_by('skd.id_skd', 'desc');
+        $this->db->group_by('diagnosa_skd.id_skd');
+        $this->db->where('tgl_mulai_skd >=', $tgl_awal);
+        $this->db->where('tgl_mulai_skd <=', $tgl_akhir);
+        if (in_array("all", $divisi) == false) {
+            $this->db->where_in('karyawan.id_divisi', $divisi);
+        }
+        if (in_array("all", $departemen) == false) {
+            $this->db->where_in('karyawan.id_departemen', $departemen);
+        }
+        if (in_array("all", $status) == false) {
+            $this->db->where_in('karyawan.status', $status);
+        }
+        if (in_array("all", $karyawan) == false) {
+            $this->db->where_in('skd.id_karyawan', $karyawan);
+        }
+        if (in_array("all", $diagnosa) == false) {
+            $this->db->where_in('diagnosa_skd.id_diagnosa', $diagnosa);
+        }
+        if (in_array("all", $status_skd) == false) {
+            $this->db->where_in('status_skd', $status_skd);
+        }
+        $this->db->from($this->_table);
+        $query = $this->db->get();
+        return $query->result();
+    }
     public function get_skd_by_id($id_skd)
     {
         $this->db->select('*');
@@ -97,7 +138,19 @@ class Skd_m extends CI_Model
         $query = $this->db->get();
         return $query->row();
     }
-
+    public function get_skd_by_id_karyawan($id_karyawan)
+    {
+        $this->db->select('*');
+        $this->db->where('skd.deleted', 0);
+        $this->db->where('skd.id_karyawan', $id_karyawan);
+        $this->db->join('karyawan', 'karyawan.id_karyawan = skd.id_karyawan', 'left');
+        $this->db->join('divisi', 'karyawan.id_divisi = divisi.id_divisi', 'left');
+        $this->db->join('departemen', 'karyawan.id_departemen = departemen.id_departemen', 'left');
+        $this->db->join('user', 'user.id_user = skd.id_user', 'left');
+        $this->db->from($this->_table);
+        $query = $this->db->get();
+        return $query->result();
+    }
     public function add_skd($post, $file)
     {
         $post = $this->input->post();
@@ -117,14 +170,12 @@ class Skd_m extends CI_Model
         $this->deleted = 0;
         $this->db->insert($this->_table, $this);
     }
-
     public function delete_skd($id)
     {
         $this->db->set('deleted', 1);
         $this->db->where('id_skd', $id);
         $this->db->update($this->_table);
     }
-
     public function update_skd($post)
     {
         $this->db->set('id_karyawan', decrypt_url($post['fid_karyawan']));

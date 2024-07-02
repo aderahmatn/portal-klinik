@@ -1,32 +1,154 @@
 <section class="content-header align-content-center rounded">
     <div class="container-fluid title-page rounded">
         <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-1">
+                <div class=" float-sm-left justify-content-center">
+                    <img src="<?= base_url() . 'assets/images/dashboard.png' ?>" alt="Responsive image" class="mr-0 mb-n3" height="100px">
+                </div>
+            </div>
+            <div class="col-sm-6 ml-4">
                 <p class="mb-0 text-white font-weight-light">Selamat datang,</p>
                 <h3 class="mb-0 text-white font-weight-bold"><?= ucwords(decrypt_url($this->session->userdata('nama_user'))) ?></h3>
                 <p class="mb-0 text-white font-weight-light"><?= decrypt_url($this->session->userdata('email'))  ?></p>
             </div>
-            <div class="col-sm-6">
-                <div class=" float-sm-right justify-content-center">
-                    <img src="<?= base_url() . 'assets/images/dashboard.png' ?>" alt="Responsive image" class="img-header">
-                </div>
-            </div>
         </div>
     </div><!-- /.container-fluid -->
 </section>
+
+
 <!-- Main content -->
 <section class="content">
-
     <div class="row">
-        <div class="col-md-12">
-            <div class="card ">
-                <!-- card-body -->
-                <div class="card-body table-responsive-sm">
 
+        <div class="col-md-3">
+            <a href="<?= base_url('kunjungan') ?>">
+                <div class="card">
+                    <div class="card-body elevation-1">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <img src="<?= base_url('assets/images/kunjungan.png') ?>" alt="" height="110px" class="">
+                            </div>
+                            <div class="col-md-6">
+                                <p class="mb-0 text-info font-weight-light">Main Menu</p>
+                                <h4 class="mb-0 text-info font-weight-bold">Kunjungan Klinik</h4>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
-            </div>
-            <!-- /.card -->
+            </a>
         </div>
+        <div class="col-md-3">
+            <a href="<?= base_url('skd') ?>">
+                <div class="card">
+                    <div class="card-body elevation-1">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <img src="<?= base_url('assets/images/skd.png') ?>" alt="" height="110px" class="">
+                            </div>
+                            <div class="col-md-6">
+                                <p class="mb-0 text-info font-weight-light">Main Menu</p>
+                                <h4 class="mb-0 text-info font-weight-bold">Surat Keterangan Dokter</h4>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-3">
+            <a href="<?= base_url('kk') ?>">
+                <div class="card">
+                    <div class="card-body elevation-1">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <img src="<?= base_url('assets/images/kk.png') ?>" alt="" height="110px" class="">
+                            </div>
+                            <div class="col-md-6">
+                                <p class="mb-0 text-info font-weight-light">Main Menu</p>
+                                <h4 class="mb-0 text-info font-weight-bold">Kecelakaan Kerja</h4>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-3">
+            <a href="<?= base_url('mcu') ?>">
+                <div class="card">
+                    <div class="card-body elevation-1">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <img src="<?= base_url('assets/images/mcu.png') ?>" alt="" height="110px" class="">
+                            </div>
+                            <div class="col-md-6">
+                                <p class="mb-0 text-info font-weight-light">Main Menu</p>
+                                <h4 class="mb-0 text-info font-weight-bold">Medical Check Up</h4>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </a>
+        </div>
+        <!-- <div class="col-md-3">
+            <a href="<?= base_url('skd') ?>">
+                <div class="card">
+                    <div class="card-body elevation-1">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <img src="<?= base_url('assets/images/skd.png') ?>" alt="" height="130px" class="">
+                            </div>
+                            <div class="col-md-6">
+                                <p class="mb-0 text-info font-weight-light">Main Menu</p>
+                                <h3 class="mb-0 text-info font-weight-bold">Surat Keterangan Dokter</h3>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-3">
+            <a href="<?= base_url('kk') ?>">
+                <div class="card">
+                    <div class="card-body elevation-1">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <img src="<?= base_url('assets/images/kk.png') ?>" alt="" height="130px" class="">
+                            </div>
+                            <div class="col-md-6">
+                                <p class="mb-0 text-info font-weight-light">Main Menu</p>
+                                <h3 class="mb-0 text-info font-weight-bold">Kecelakaan Kerja</h3>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-3">
+            <a href="<?= base_url('mcu') ?>">
+                <div class="card">
+                    <div class="card-body elevation-1">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <img src="<?= base_url('assets/images/mcu.png') ?>" alt="" height="130px" class="">
+                            </div>
+                            <div class="col-md-6">
+                                <p class="mb-0 text-info font-weight-light">Main Menu</p>
+                                <h3 class="mb-0 text-info font-weight-bold">Medical Check Up</h3>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </a>
+        </div> -->
+
+
+
     </div>
 </section>
 

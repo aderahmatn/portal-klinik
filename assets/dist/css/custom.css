@@ -24,6 +24,11 @@ background-size: 95px 95px;
 background-repeat: no-repeat;
 background-color:#63c4d7;
 }
+.content-wrapper{
+background-image: url('../../../assets/images/bg.png');
+background-size: 200px ;
+}
+
 .content-header{
 margin-left: 7.5px;
 margin-right: 7.5px;

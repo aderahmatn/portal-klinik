@@ -8,6 +8,13 @@ function get_obat_kunjungan_by_id_kunjungan($id_kunjungan)
         echo '<span class="badge badge-pill badge-success ml-1">' . $key->nama_obat . ' (' . $key->jumlah_keluar . ')' . '</span>';
     }
 }
+function get_obat_kunjungan_by_id_kunjungan_text($id_kunjungan)
+{
+    $CI = &get_instance();
+    $CI->load->model('Obat_kunjungan_m');
+    $data = $CI->Obat_kunjungan_m->get_obat_kunjungan_by_id_kunjungan($id_kunjungan);
+    return implode(', ', array_column($data, 'nama_obat'));
+}
 function get_total_obat_keluar_kunjungan($id_obat)
 {
     $CI = &get_instance();

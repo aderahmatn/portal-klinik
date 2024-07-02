@@ -1,6 +1,11 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
+require './vendor/autoload.php';
+
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
 class Kunjungan extends CI_Controller
 {
 
@@ -12,7 +17,10 @@ class Kunjungan extends CI_Controller
         $this->load->helper(['diagnosa_kunjungan', 'obat_kunjungan']);
     }
 
-
+    // function test()
+    // {
+    //     get_obat_kunjungan_by_id_kunjungan_text(30);
+    // }
     public function index()
     {
         $data['kunjungan'] = $this->Kunjungan_m->get_all_kunjungan();
@@ -21,7 +29,6 @@ class Kunjungan extends CI_Controller
     }
     public function create()
     {
-
         $kunjungan = $this->Kunjungan_m;
         $validation = $this->form_validation;
         $validation->set_rules($kunjungan->rules_kunjungan());
@@ -150,6 +157,113 @@ class Kunjungan extends CI_Controller
         }
         $this->session->set_flashdata('success', 'Data kunjungan berhasil disimpan!');
         redirect('kunjungan', 'refresh');
+    }
+    public function filter_xls()
+    {
+        $this->load->model(['Divisi_m', 'Departemen_m', 'Diagnosa_m']);
+
+        $data['diagnosa'] = $this->Diagnosa_m->get_all_diagnosa();
+        $data['divisi'] = $this->Divisi_m->get_all_divisi();
+        $data['dept'] = $this->Departemen_m->get_all_departemen();
+        $data['karyawan'] = $this->Karyawan_m->get_all_karyawan();
+        $this->load->view('kunjungan/filter_xls', $data);
+    }
+    public function excel()
+    {
+        $tgl_awal = $_POST['ftgl_awal'];
+        $tgl_akhir = $_POST['ftgl_akhir'];
+        $divisi = $_POST['fdivisi'];
+        $departemen = $_POST['fdepartemen'];
+        $status = $_POST['fstatus'];
+        $karyawan = $_POST['karyawan'];
+        $diagnosa = $_POST['fdiagnosa'];
+        $data = $this->Kunjungan_m->get_all_kunjungan_by_filter(
+            $tgl_awal,
+            $tgl_akhir,
+            $divisi,
+            $departemen,
+            $status,
+            $karyawan,
+            $diagnosa,
+        );
+
+
+        $spreadsheet = new Spreadsheet();
+        $activeWorksheet = $spreadsheet->getActiveSheet();
+        foreach (range('A', 'Q') as $columnID) {
+            $spreadsheet->getActiveSheet()->getColumnDimension($columnID)->setAutoSize(true);
+        }
+        $activeWorksheet->getStyle('A1')->getFont()->setBold(true);
+        $activeWorksheet->getStyle('A1')->getFont()->setSize(20);
+        $activeWorksheet->getStyle('A2:Q2')->getFont()->setBold(true);
+        $activeWorksheet->getStyle('A2:Q2')->getFont()->setSize(12);
+        $activeWorksheet->getStyle('A2:Q2')->getFill()
+            ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+            ->getStartColor()->setARGB('FFFFCC');
+        $activeWorksheet->getRowDimension('1')->setRowHeight(40);
+        $activeWorksheet->getRowDimension('2')->setRowHeight(26);
+        $activeWorksheet->getStyle('A1')->getAlignment()->setVertical('center');
+        $activeWorksheet->getStyle('A2:Q2')->getAlignment()->setVertical('center');
+        $activeWorksheet->mergeCells('A1:Q1');
+
+
+
+        $activeWorksheet->getStyle('A2:Q2')->getAlignment()->setHorizontal('center');
+        $activeWorksheet->getStyle('A1:Q1')->getAlignment()->setHorizontal('center');
+        $activeWorksheet->setCellValue('A1', 'REKAP DATA KUNJUNGAN');
+        $activeWorksheet->setCellValue('A2', 'TANGGAL KUNJUNGAN');
+        $activeWorksheet->setCellValue('B2', 'JAM KUNJUNGAN');
+        $activeWorksheet->setCellValue('C2', 'NAMA LENGKAP');
+        $activeWorksheet->setCellValue('D2', 'L/P');
+        $activeWorksheet->setCellValue('E2', 'TANGGAL LAHIR');
+        $activeWorksheet->setCellValue('F2', 'USIA');
+        $activeWorksheet->setCellValue('G2', 'PERUSAHAAN');
+        $activeWorksheet->setCellValue('H2', 'DIVISI');
+        $activeWorksheet->setCellValue('I2', 'DEPARTEMEN');
+        $activeWorksheet->setCellValue('J2', 'BAGIAN');
+        $activeWorksheet->setCellValue('K2', 'STATUS');
+        $activeWorksheet->setCellValue('L2', 'ANAMNESA');
+        $activeWorksheet->setCellValue('M2', 'DIAGNOSA');
+        $activeWorksheet->setCellValue('N2', 'CATATAN');
+        $activeWorksheet->setCellValue('O2', 'TERAPHY FISIK');
+        $activeWorksheet->setCellValue('P2', 'TERAPHY OBAT');
+        $activeWorksheet->setCellValue('Q2', 'PERAWAT');
+
+        $column = 3;
+        foreach ($data as $key => $value) {
+            $activeWorksheet->setCellValue('A' . $column, TanggalIndo($value->tgl_kunjungan));
+            $activeWorksheet->setCellValue('B' . $column, $value->jam_kunjungan);
+            $activeWorksheet->setCellValue('C' . $column, strtoupper($value->nama_lengkap));
+            $activeWorksheet->setCellValue('D' . $column, strtoupper($value->jenkel));
+            $activeWorksheet->setCellValue('E' . $column, $value->tgl_lahir);
+            $activeWorksheet->setCellValue('F' . $column, date('Y', strtotime($value->tgl_kunjungan)) - date('Y', strtotime($value->tgl_lahir)));
+            $activeWorksheet->setCellValue('G' . $column, strtoupper($value->perusahaan));
+            $activeWorksheet->setCellValue('H' . $column, strtoupper($value->nama_divisi));
+            $activeWorksheet->setCellValue('I' . $column, strtoupper($value->nama_departemen));
+            $activeWorksheet->setCellValue('J' . $column, strtoupper($value->bagian));
+            $activeWorksheet->setCellValue('K' . $column, strtoupper($value->status));
+            $activeWorksheet->setCellValue('L' . $column, strtoupper($value->anamnesa));
+            $activeWorksheet->setCellValue('M' . $column, strtoupper(get_diagnosa_kunjungan_by_id_kunjungan_text($value->id_kunjungan)));
+            $activeWorksheet->setCellValue('N' . $column, strtoupper($value->catatan_kunjungan));
+            $activeWorksheet->setCellValue('O' . $column, strtoupper($value->teraphy));
+            $activeWorksheet->setCellValue('P' . $column, strtoupper(get_obat_kunjungan_by_id_kunjungan_text($value->id_kunjungan)));
+            $activeWorksheet->setCellValue('Q' . $column, strtoupper($value->nama_user));
+            $column++;
+        }
+        $styleArray = [
+            'borders' => [
+                'allBorders' => [
+                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                ]
+            ]
+        ];
+        $activeWorksheet->getStyle('A2:Q' . ($column - 1))->applyFromArray($styleArray);
+        $writer = new Xlsx($spreadsheet);
+        $filename = 'data_kunjungan.xlsx';
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment; filename="' . $filename . '"');
+        $writer->save('php://output');
+        exit();
     }
 }
 

@@ -48,8 +48,19 @@ class Mcu_m extends CI_Model
         $this->db->from($this->_table);
         $this->db->join('karyawan', 'karyawan.id_karyawan = mcu.id_karyawan', 'left');
         $this->db->order_by('id_mcu', 'desc');
-
         $this->db->where('mcu.deleted', 0);
+        $query = $this->db->get();
+        return $query->result();
+    }
+    public function get_mcu_by_id_karyawan($id_karyawan)
+    {
+        $this->db->select('*');
+        $this->db->from($this->_table);
+        $this->db->join('karyawan', 'karyawan.id_karyawan = mcu.id_karyawan', 'left');
+        $this->db->join('user', 'user.id_user = mcu.created_by', 'left');
+        $this->db->order_by('id_mcu', 'desc');
+        $this->db->where('mcu.deleted', 0);
+        $this->db->where('mcu.id_karyawan', $id_karyawan);
         $query = $this->db->get();
         return $query->result();
     }

@@ -6,6 +6,20 @@ $(document).ready(function () {
 		order: [],
 		responsive: true,
 	});
+	$("#tableSkd").DataTable({
+		// rowReorder: {
+		//     selector: 'td:nth-child(2)'
+		// },
+		order: [],
+		responsive: true,
+	});
+	$("#tableKk").DataTable({
+		// rowReorder: {
+		//     selector: 'td:nth-child(2)'
+		// },
+		order: [],
+		responsive: true,
+	});
 	$("#tableMCU").DataTable({
 		rowReorder: {
 			selector: "td:nth-child(4)",

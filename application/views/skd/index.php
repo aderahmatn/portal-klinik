@@ -5,7 +5,7 @@
                 <h3 class="mb-0 text-white font-weight-bold">DATA SURAT KETERANGAN DOKTER</h3>
                 <p class="mb-0 text-white font-weight-light">Kelola data surat keterangan dokter</p>
                 <a class="btn btn-md btn-primary mt-2" href="<?= base_url('skd/create') ?>">INPUT DATA SKD</a>
-
+                <a class="btn btn-md btn-success mt-2" href="javascript:;" onclick="exportXls()" data-toggle="modal" data-target="#modal_xls" data-toggle="tooltip" title="EXPORT SPREADSHEET">EXPORT SPREADSHEET</a>
             </div>
             <div class="col-sm-6">
                 <div class=" float-sm-right justify-content-center">
@@ -457,7 +457,22 @@
     </div>
 </div>
 <!-- End Modal PDF -->
+<!-- Modal export xls -->
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" id="modal_xls" class="modal fade">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <P class="modal-title">EXPORT SPREADSHEET</P>
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+            </div>
 
+            <div class="modal-body " id="body-xls">
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END Modal export xls -->
 <script type="text/javascript">
     function showFile(file) {
         $('#modal_pdf').modal('show')
@@ -569,6 +584,18 @@
             success: function(response) {
                 $('#body-edit-lampiran').empty();
                 $('#body-edit-lampiran').append(response);
+            }
+        });
+    }
+
+    function exportXls() {
+        $.ajax({
+            type: "get",
+            url: "<?= site_url('skd/filter_xls/'); ?>",
+            dataType: "html",
+            success: function(response) {
+                $('#body-xls').empty();
+                $('#body-xls').append(response);
             }
         });
     }

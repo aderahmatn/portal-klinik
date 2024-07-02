@@ -5,6 +5,7 @@
                 <h3 class="mb-0 text-white font-weight-bold">DATA KUNJUNGAN</h3>
                 <p class="mb-0 text-white font-weight-light">Kelola data kunjungan klinik</p>
                 <a class="btn btn-md btn-primary mt-2" href="<?= base_url('kunjungan/create') ?>">TAMBAH KUNJUNGAN</a>
+                <a class="btn btn-md btn-success mt-2" href="javascript:;" onclick="exportXls()" data-toggle="modal" data-target="#modal_xls" data-toggle="tooltip" title="EXPORT SPREADSHEET">EXPORT SPREADSHEET</a>
 
             </div>
             <div class="col-sm-6">
@@ -282,6 +283,22 @@
     </div>
 </div>
 <!-- END Modal edit obat -->
+<!-- Modal export xls -->
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" id="modal_xls" class="modal fade">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <P class="modal-title">EXPORT SPREADSHEET</P>
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+            </div>
+
+            <div class="modal-body " id="body-xls">
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END Modal export xls -->
 <!-- modal karyawan -->
 <div class="modal fade" id="modal_karyawan">
     <div class="modal-dialog modal-xl">
@@ -400,6 +417,18 @@
             success: function(response) {
                 $('#bodymodal_Detail').empty();
                 $('#bodymodal_Detail').append(response);
+            }
+        });
+    }
+
+    function exportXls() {
+        $.ajax({
+            type: "get",
+            url: "<?= site_url('kunjungan/filter_xls/'); ?>",
+            dataType: "html",
+            success: function(response) {
+                $('#body-xls').empty();
+                $('#body-xls').append(response);
             }
         });
     }

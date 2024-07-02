@@ -53,6 +53,46 @@ class Kunjungan_m extends CI_Model
         $this->db->join('karyawan', 'karyawan.id_karyawan = kunjungan.id_karyawan', 'left');
         $this->db->join('divisi', 'divisi.id_divisi = karyawan.id_divisi', 'left');
         $this->db->join('departemen', 'departemen.id_departemen = karyawan.id_departemen', 'left');
+        $this->db->join('user', 'user.id_user = kunjungan.created_by', 'left');
+        $this->db->order_by('kunjungan.id_kunjungan', 'desc');
+        $this->db->from($this->_table);
+        $query = $this->db->get();
+        return $query->result();
+    }
+    public function get_all_kunjungan_by_filter(
+        $tgl_awal,
+        $tgl_akhir,
+        $divisi,
+        $departemen,
+        $status,
+        $karyawan,
+        $diagnosa,
+    ) {
+        $this->db->select('*');
+        $this->db->join('karyawan', 'karyawan.id_karyawan = kunjungan.id_karyawan', 'left');
+        $this->db->join('divisi', 'divisi.id_divisi = karyawan.id_divisi', 'left');
+        $this->db->join('departemen', 'departemen.id_departemen = karyawan.id_departemen', 'left');
+        $this->db->join('user', 'user.id_user = kunjungan.created_by', 'left');
+        $this->db->join('diagnosa_kunjungan', 'diagnosa_kunjungan.id_kunjungan = kunjungan.id_kunjungan', 'left');
+        $this->db->group_by('diagnosa_kunjungan.id_kunjungan');
+        $this->db->where('kunjungan.deleted', 0);
+        $this->db->where('tgl_kunjungan >=', $tgl_awal);
+        $this->db->where('tgl_kunjungan <=', $tgl_akhir);
+        if (in_array("all", $divisi) == false) {
+            $this->db->where_in('karyawan.id_divisi', $divisi);
+        }
+        if (in_array("all", $departemen) == false) {
+            $this->db->where_in('karyawan.id_departemen', $departemen);
+        }
+        if (in_array("all", $status) == false) {
+            $this->db->where_in('karyawan.status', $status);
+        }
+        if (in_array("all", $karyawan) == false) {
+            $this->db->where_in('kunjungan.id_karyawan', $karyawan);
+        }
+        if (in_array("all", $diagnosa) == false) {
+            $this->db->where_in('diagnosa_kunjungan.id_diagnosa', $diagnosa);
+        }
         $this->db->order_by('kunjungan.id_kunjungan', 'desc');
         $this->db->from($this->_table);
         $query = $this->db->get();
@@ -66,12 +106,23 @@ class Kunjungan_m extends CI_Model
         $this->db->join('karyawan', 'karyawan.id_karyawan = kunjungan.id_karyawan', 'left');
         $this->db->join('divisi', 'divisi.id_divisi = karyawan.id_divisi', 'left');
         $this->db->join('user', 'user.id_user = kunjungan.created_by', 'left');
-
         $this->db->join('departemen', 'departemen.id_departemen = karyawan.id_departemen', 'left');
-
         $this->db->from($this->_table);
         $query = $this->db->get();
         return $query->row();
+    }
+    public function get_kunjungan_by_id_karyawan($id_karyawan)
+    {
+        $this->db->select('*');
+        $this->db->where('kunjungan.deleted', 0);
+        $this->db->where('kunjungan.id_karyawan', $id_karyawan);
+        $this->db->join('karyawan', 'karyawan.id_karyawan = kunjungan.id_karyawan', 'left');
+        $this->db->join('divisi', 'divisi.id_divisi = karyawan.id_divisi', 'left');
+        $this->db->join('user', 'user.id_user = kunjungan.created_by', 'left');
+        $this->db->join('departemen', 'departemen.id_departemen = karyawan.id_departemen', 'left');
+        $this->db->from($this->_table);
+        $query = $this->db->get();
+        return $query->result();
     }
 
     public function add_kunjungan()

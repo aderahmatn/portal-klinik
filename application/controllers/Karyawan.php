@@ -9,6 +9,7 @@ class Karyawan extends CI_Controller
         parent::__construct();
         check_not_login();
         $this->load->model(['Divisi_m', 'Departemen_m', 'Karyawan_m']);
+        $this->load->helper(['Diagnosa_kunjungan', 'Obat_kunjungan', 'Diagnosa_skd']);
     }
     public function index()
     {
@@ -17,7 +18,13 @@ class Karyawan extends CI_Controller
     }
     public function detail($id)
     {
+        $this->load->model(['Kunjungan_m', 'Skd_m', 'Kk_m', 'Mcu_m']);
+
         $data['karyawan'] = $this->Karyawan_m->get_by_id_karyawan(decrypt_url($id));
+        $data['kunjungan'] = $this->Kunjungan_m->get_kunjungan_by_id_karyawan(decrypt_url($id));
+        $data['skd'] = $this->Skd_m->get_skd_by_id_karyawan(decrypt_url($id));
+        $data['kk'] = $this->Kk_m->get_kk_by_id_karyawan(decrypt_url($id));
+        $data['mcu'] = $this->Mcu_m->get_mcu_by_id_karyawan(decrypt_url($id));
         $this->template->load('shared/index', 'karyawan/detail', $data);
     }
     public function divisi()
@@ -57,7 +64,7 @@ class Karyawan extends CI_Controller
             }
         }
     }
-    function update($id = null)
+    public function update($id = null)
     {
         if (!isset($id))
             redirect('karyawan');
@@ -86,7 +93,7 @@ class Karyawan extends CI_Controller
         $data['departemen'] = $departemen->get_all_departemen();
         $this->template->load('shared/index', 'karyawan/edit', $data);
     }
-    function update_divisi()
+    public function update_divisi()
     {
         $post = $this->input->post(null, TRUE);
         $this->Divisi_m->update_divisi($post);
@@ -98,7 +105,7 @@ class Karyawan extends CI_Controller
             redirect('karyawan/divisi', 'refresh');
         }
     }
-    function update_departemen()
+    public function update_departemen()
     {
         $post = $this->input->post(null, TRUE);
         $this->Departemen_m->update_departemen($post);

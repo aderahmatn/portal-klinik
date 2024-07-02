@@ -142,7 +142,19 @@ class Kk_m extends CI_Model
         $query = $this->db->get();
         return $query->row();
     }
-
+    public function get_kk_by_id_karyawan($id_karyawan)
+    {
+        $this->db->select('*');
+        $this->db->where('kk.deleted', 0);
+        $this->db->where('kk.id_karyawan', $id_karyawan);
+        $this->db->join('karyawan', 'karyawan.id_karyawan = kk.id_karyawan', 'left');
+        $this->db->join('divisi', 'divisi.id_divisi = karyawan.id_divisi', 'left');
+        $this->db->join('departemen', 'departemen.id_departemen = karyawan.id_departemen', 'left');
+        $this->db->join('user', 'user.id_user = kk.id_user', 'left');
+        $this->db->from($this->_table);
+        $query = $this->db->get();
+        return $query->result();
+    }
     public function add_kk($post, $file)
     {
         $post = $this->input->post();

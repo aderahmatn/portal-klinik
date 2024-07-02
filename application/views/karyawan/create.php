@@ -10,14 +10,14 @@
                     <section class=" mx-0 content-header align-content-center rounded">
                         <div class="container-fluid title-page rounded">
                             <div class="row">
-                                <div class="col-sm-6">
+                                <div class="col-sm-8">
                                     <h3 class="mb-0 text-white font-weight-bold">TAMBAH DATA KARYAWAN</h3>
                                     <p class="mb-0 text-white font-weight-light">Tambah data karyawan baru untuk mulai melakukan rekam medis</p>
 
                                 </div>
-                                <div class="col-sm-6">
+                                <div class="col-sm-4">
                                     <div class=" float-sm-right justify-content-center">
-                                        <img src="<?= base_url() . 'assets/images/karyawan.png' ?>" alt="Responsive image" class="img-header">
+                                        <img src="<?= base_url() . 'assets/images/karyawan.png' ?>" alt="Responsive image" class="img-header mr-0">
                                     </div>
                                 </div>
                             </div>
