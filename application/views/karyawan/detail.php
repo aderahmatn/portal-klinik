@@ -8,7 +8,10 @@
 
             <div class="col-sm-6">
                 <div class=" float-sm-right justify-content-center">
-                    <a class="btn btn-md btn-primary mt-2" href="<?= base_url('karyawaN') ?>">KEMBALI</a>
+                    <button class="btn btn-success mt-2" id="btn-load" disabled><span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>DOWNLOADING..</button>
+                    <a class="btn btn-md btn-success mt-2" href="<?= base_url('karyawan/excel/') . encrypt_url($karyawan->id_karyawan) ?>" onclick="load()" id="btn-export">EXPORT SPREADSHEET</a>
+
+                    <a class="btn btn-md btn-primary mt-2" href="<?= base_url('karyawan') ?>">KEMBALI</a>
                 </div>
             </div>
         </div>
@@ -435,6 +438,17 @@
 </div>
 <!-- end Modal PDF MCU-->
 <script>
+    $('#btn-load').hide();
+
+    function load() {
+        $('#btn-export').hide();
+        $('#btn-load').show();
+        setTimeout(() => {
+            $('#btn-export').show();
+            $('#btn-load').hide();
+        }, 3000);
+    }
+
     function showFile(file) {
         $('#modal_pdf').modal('show')
         $(`<embed type="application/pdf" src="<?= base_url("uploads/skd/") ?>${file}" width="100%" height="650"></embed>`).appendTo('#bodymodal_modal_pdf')

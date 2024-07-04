@@ -128,6 +128,42 @@ class Kk_m extends CI_Model
         $query = $this->db->get();
         return $query->result();
     }
+    public function get_all_kk_by_filter(
+        $tgl_awal,
+        $tgl_akhir,
+        $divisi,
+        $departemen,
+        $status,
+        $karyawan,
+        $pendidikan
+    ) {
+        $this->db->select('*');
+        $this->db->where('kk.deleted', 0);
+        $this->db->join('karyawan', 'karyawan.id_karyawan = kk.id_karyawan', 'left');
+        $this->db->join('divisi', 'divisi.id_divisi = karyawan.id_divisi', 'left');
+        $this->db->join('departemen', 'departemen.id_departemen = karyawan.id_departemen', 'left');
+        $this->db->order_by('kk.id_karyawan', 'asc');
+        $this->db->where('kk.tgl_kejadian >=', $tgl_awal);
+        $this->db->where('kk.tgl_kejadian <=', $tgl_akhir);
+        if (in_array("all", $divisi) == false) {
+            $this->db->where_in('karyawan.id_divisi', $divisi);
+        }
+        if (in_array("all", $departemen) == false) {
+            $this->db->where_in('karyawan.id_departemen', $departemen);
+        }
+        if (in_array("all", $status) == false) {
+            $this->db->where_in('karyawan.status', $status);
+        }
+        if (in_array("all", $karyawan) == false) {
+            $this->db->where_in('kk.id_karyawan', $karyawan);
+        }
+        if (in_array("all", $pendidikan) == false) {
+            $this->db->where_in('kk.pendidikan_terakhir', $pendidikan);
+        }
+        $this->db->from($this->_table);
+        $query = $this->db->get();
+        return $query->result();
+    }
 
     public function get_kk_by_id($id_kk)
     {

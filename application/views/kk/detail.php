@@ -116,7 +116,7 @@
             <?= $kk->bagian_cidera ?>
         </p>
         <hr class="m-1">
-        <strong> Medical Treatment (TM) </strong>
+        <strong> Medical Treatment (MT) </strong>
         <p class="text-muted">
             <?= $kk->medical_treatment ?>
         </p>

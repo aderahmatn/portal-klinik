@@ -4,11 +4,13 @@
             <div class="col-sm-6">
                 <h3 class="mb-0 text-white font-weight-bold">DATA MEDICAL CHECK UP</h3>
                 <p class="mb-0 text-white font-weight-light">Kelola catatan data medical check up karyawan</p>
+                <a class="btn btn-md btn-success mt-2" href="javascript:;" onclick="exportXls()" data-toggle="modal" data-target="#modal_xls" data-toggle="tooltip" title="EXPORT SPREADSHEET">EXPORT SPREADSHEET</a>
             </div>
 
             <div class="col-sm-6">
                 <div class=" float-sm-right justify-content-center">
                     <img src="<?= base_url() . 'assets/images/mcu.png' ?>" alt="Responsive image" class="img-header">
+
                 </div>
             </div>
         </div>
@@ -59,7 +61,7 @@
                             </div>
                         </div>
                         <div class="form-group required">
-                            <label class="control-label" for="fkategori">Kategori MCU</label>
+                            <label class="control-label" for="fkategori">Kategori MCU Awal</label>
                             <select class="text-uppercase form-control <?php echo form_error('fkategori') ? 'is-invalid' : '' ?>" id="fkategori" name="fkategori">
                                 <option hidden value="" selected>Pilih kategori </option>
                                 <option value="1">[1] BAIK - FIT TO WORK</option>
@@ -68,6 +70,25 @@
                             </select>
                             <div class="invalid-feedback">
                                 <?= form_error('fkategori') ?>
+                            </div>
+                        </div>
+                        <div class="form-group required">
+                            <label class="control-label" for="fkategori_followup">Kategori MCU Follow Up</label>
+                            <select class="text-uppercase form-control <?php echo form_error('fkategori_followup') ? 'is-invalid' : '' ?>" id="fkategori_followup" name="fkategori_followup">
+                                <option hidden value="" selected>Pilih kategori Follow Up</option>
+                                <option value="1">[1] BAIK - FIT TO WORK</option>
+                                <option value="2">[2] CUKUP - FIT WITH NOTE</option>
+                                <option value="3">[3] KURANG - TEMPORARY UNFIT</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                <?= form_error('fkategori_followup') ?>
+                            </div>
+                        </div>
+                        <div class="form-group required">
+                            <label class="control-label" for="fcatatan">Catatan</label>
+                            <textarea name="fcatatan" class="form-control <?= form_error('fcatatan') ? 'is-invalid' : '' ?> text-uppercase" id="fcatatan" placeholder="Catatan" style="text-transform:uppercase"></textarea>
+                            <div class="invalid-feedback">
+                                <?= form_error('fcatatan') ?>
                             </div>
                         </div>
                         <div class="form-group required">
@@ -131,7 +152,7 @@
                                                 OPSI
                                             </button>
                                             <div class="dropdown-menu dropdown-menu-right">
-                                                <a href="javascript:;" data-id="<?= encrypt_url($key->id_mcu)  ?>" data-namakaryawan="<?= $key->nama_lengkap ?>" data-kesimpulan="<?= $key->kesimpulan ?>" data-saran="<?= $key->saran ?>" data-toggle="modal" data-target="#modal_detail" data-toggle="tooltip" title="LIHAT DETAIL">
+                                                <a href="javascript:;" data-id="<?= encrypt_url($key->id_mcu)  ?>" data-namakaryawan="<?= $key->nama_lengkap ?>" data-kesimpulan="<?= $key->kesimpulan ?>" data-kategori_followup="<?= $key->kategori_followup ?>" data-saran="<?= $key->saran ?>" data-catatan="<?= $key->catatan ?>" data-toggle="modal" data-target="#modal_detail" data-toggle="tooltip" title="LIHAT DETAIL">
                                                     <button data-toggle="modal" data-target="#ubah-data" class="dropdown-item ">
                                                         <div class="row">
                                                             <div class="col-2"><i class="fas fa-eye fa-sm"></i></div>
@@ -148,7 +169,7 @@
 
                                                 </a>
 
-                                                <a href="javascript:;" data-id="<?= encrypt_url($key->id_mcu)  ?>" data-tglmcu="<?= $key->tgl_mcu ?>" data-idkaryawan="<?= encrypt_url($key->id_karyawan)  ?>" data-namakaryawan="<?= $key->nama_lengkap ?>" data-kesimpulan="<?= $key->kesimpulan ?>" data-saran="<?= $key->saran ?>" data-kategori="<?= $key->kategori_mcu ?>" data-toggle="modal" data-target="#edit-data" data-toggle="tooltip" title="EDIT DATA">
+                                                <a href="javascript:;" data-id="<?= encrypt_url($key->id_mcu)  ?>" data-tglmcu="<?= $key->tgl_mcu ?>" data-idkaryawan="<?= encrypt_url($key->id_karyawan)  ?>" data-namakaryawan="<?= $key->nama_lengkap ?>" data-kesimpulan="<?= $key->kesimpulan ?>" data-saran="<?= $key->saran ?>" data-kategori="<?= $key->kategori_mcu ?>" data-kategori_followup="<?= $key->kategori_followup ?>" data-catatan="<?= $key->catatan ?>" data-toggle="modal" data-target="#edit-data" data-toggle="tooltip" title="EDIT DATA">
                                                     <button data-toggle="modal" data-target="#ubah-data" class="dropdown-item">
                                                         <div class="row">
                                                             <div class="col-2"><i class="fas fa-edit fa-sm"></i></div>
@@ -424,6 +445,25 @@
                             <?= form_error('fkategori') ?>
                         </div>
                     </div>
+                    <div class="form-group required">
+                        <label class="control-label" for="fkategori_followup">Kategori MCU Follow Up</label>
+                        <select class="text-uppercase form-control <?php echo form_error('fkategori_followup') ? 'is-invalid' : '' ?>" id="fkategori_followup" name="fkategori_followup">
+                            <option hidden value="" selected>Pilih kategori Follow Up</option>
+                            <option value="1">[1] BAIK - FIT TO WORK</option>
+                            <option value="2">[2] CUKUP - FIT WITH NOTE</option>
+                            <option value="3">[3] KURANG - TEMPORARY UNFIT</option>
+                        </select>
+                        <div class="invalid-feedback">
+                            <?= form_error('fkategori_followup') ?>
+                        </div>
+                    </div>
+                    <div class="form-group required">
+                        <label class="control-label" for="fcatatan">Catatan</label>
+                        <textarea name="fcatatan" class="form-control <?= form_error('fcatatan') ? 'is-invalid' : '' ?> text-uppercase" id="fcatatan" placeholder="Catatan" style="text-transform:uppercase"></textarea>
+                        <div class="invalid-feedback">
+                            <?= form_error('fcatatan') ?>
+                        </div>
+                    </div>
                     <a href="">Ganti file MCU</a>
                     <div class="modal-footer">
                         <button class="btn btn-default" type="button" data-dismiss="modal"> Batal</button>
@@ -446,6 +486,10 @@
             </div>
             <div class="modal-body">
                 <div class="card-body">
+                    <strong>KATEGORI FOLLOW UP</strong>
+                    <p class="text-muted" id="kategori_followup">
+                        <hr>
+                    </p>
                     <strong>KESIMPULAN</strong>
                     <p class="text-muted" id="kesimpulan">
 
@@ -453,14 +497,54 @@
                     <hr>
                     <strong>SARAN</strong>
                     <p class="text-muted" id="saran"></p>
+                    <hr>
+                    <strong>CATATAN</strong>
+                    <p class="text-muted" id="catatan"></p>
                 </div>
             </div>
         </div>
     </div>
 </div>
 <!-- END Modal detail -->
+<!-- Modal export xls -->
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" id="modal_xls" class="modal fade">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="row m-0 py-2 bg-success rounded-top">
+                <div class="col-sm-1">
+                    <img src="<?= base_url() . 'assets/images/mcu.png' ?>" alt="Responsive image" height="60px">
+                </div>
+                <div class="col-sm-10 align-content-center float-sm-right">
+                    <h5 class="mb-0 text-white font-weight-bold">EXPORT SPREADSHEET</h5>
+                    <p class="mb-0 text-white font-weight-light">Data Medical Check Up</p>
+
+                </div>
+                <div class="col-sm-1 align-content-center">
+                    <div class="float-sm-right align-content-center">
+                        <button aria-hidden="true" data-dismiss="modal" class="close btn-lg mr-3" type="button" style="font-size: 1.8rem;">×</button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body " id="body-xls">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END Modal export xls -->
 
 <script type="text/javascript">
+    function exportXls() {
+        $.ajax({
+            type: "get",
+            url: "<?= site_url('mcu/filter_xls/'); ?>",
+            dataType: "html",
+            success: function(response) {
+                $('#body-xls').empty();
+                $('#body-xls').append(response);
+            }
+        });
+    }
+
     function onFocus() {
         $('#modal_karyawan').modal('show')
     }
@@ -508,6 +592,8 @@
             modal.find('#fkesimpulan').val(div.data('kesimpulan'));
             modal.find('#fsaran').val(div.data('saran'));
             modal.find('#fkategori').val(div.data('kategori'));
+            modal.find('#fkategori_followup').val(div.data('kategori_followup'));
+            modal.find('#fcatatan').val(div.data('catatan'));
         });
         $('#modal_detail').on('show.bs.modal', function(event) {
             var div = $(event.relatedTarget) // Tombol dimana modal di tampilkan
@@ -515,6 +601,8 @@
             modal.find('#nama_detail').append(div.data('namakaryawan'));
             modal.find('#saran').append(div.data('saran'));
             modal.find('#kesimpulan').append(div.data('kesimpulan'));
+            modal.find('#kategori_followup').append(div.data('kategori_followup'));
+            modal.find('#catatan').append(div.data('catatan'));
 
         });
     });

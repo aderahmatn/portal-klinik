@@ -5,6 +5,7 @@
                 <h3 class="mb-0 text-white font-weight-bold">DATA KECELAKAAN KERJA</h3>
                 <p class="mb-0 text-white font-weight-light">Kelola data korban dan kejadian kecelakaan kerja</p>
                 <a class="btn btn-md btn-primary mt-2" href="<?= base_url('kk/create') ?>">TAMBAH DATA</a>
+                <a class="btn btn-md btn-success mt-2" href="javascript:;" onclick="exportXls()" data-toggle="modal" data-target="#modal_xls" data-toggle="tooltip" title="EXPORT SPREADSHEET">EXPORT SPREADSHEET</a>
             </div>
             <div class="col-sm-6">
                 <div class=" float-sm-right justify-content-center">
@@ -154,7 +155,31 @@
     </div>
 </div>
 <!-- END Modal detail -->
+<!-- Modal export xls -->
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" id="modal_xls" class="modal fade">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="row m-0 py-2 bg-success rounded-top">
+                <div class="col-sm-1">
+                    <img src="<?= base_url() . 'assets/images/kk.png' ?>" alt="Responsive image" height="60px">
+                </div>
+                <div class="col-sm-10 align-content-center float-sm-right">
+                    <h5 class="mb-0 text-white font-weight-bold">EXPORT SPREADSHEET</h5>
+                    <p class="mb-0 text-white font-weight-light">Data Kecelakaan Kerja</p>
 
+                </div>
+                <div class="col-sm-1 align-content-center">
+                    <div class="float-sm-right align-content-center">
+                        <button aria-hidden="true" data-dismiss="modal" class="close btn-lg mr-3" type="button" style="font-size: 1.8rem;">×</button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body " id="body-xls">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END Modal export xls -->
 <!-- Modal Ubah -->
 <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" id="edit-data" class="modal fade">
     <div class="modal-dialog">
@@ -406,6 +431,18 @@
             success: function(response) {
                 $('#body-edit-obat').empty();
                 $('#body-edit-obat').append(response);
+            }
+        });
+    }
+
+    function exportXls() {
+        $.ajax({
+            type: "get",
+            url: "<?= site_url('kk/filter_xls/'); ?>",
+            dataType: "html",
+            success: function(response) {
+                $('#body-xls').empty();
+                $('#body-xls').append(response);
             }
         });
     }

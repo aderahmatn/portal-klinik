@@ -4,7 +4,7 @@
          <div class="row">
              <div class="col-md-4">
                  <div class="form-group required">
-                     <label class="control-label" for="ftgl_awal">Range Tanggal Awal SKD </label>
+                     <label class="control-label" for="ftgl_awal">Range Awal Tanggal SKD </label>
                      <input type="date" class="form-control <?= form_error('ftgl_awal') ? 'is-invalid' : '' ?>" id="ftgl_awal" name="ftgl_awal" placeholder="Tanggal SKD" value="<?= date('Y') . '-' . date('m') . '-' . date('d') ?>" required>
                      <div class="invalid-feedback">
                          <?= form_error('ftgl_awal') ?>
@@ -13,7 +13,7 @@
              </div>
              <div class="col-md-4">
                  <div class="form-group required">
-                     <label class="control-label" for="ftgl_akhir">Range Tanggal Akhir SKD </label>
+                     <label class="control-label" for="ftgl_akhir">Range Akhir Tanggal SKD </label>
                      <input type="date" class="form-control <?= form_error('ftgl_akhir') ? 'is-invalid' : '' ?>" id="ftgl_akhir" name="ftgl_akhir" placeholder="Tanggal SKD" value="<?= date('Y') . '-' . date('m') . '-' . date('d') ?>" required>
                      <div class="invalid-feedback">
                          <?= form_error('ftgl_akhir') ?>

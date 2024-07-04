@@ -1,6 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
-require './vendor/autoload.php';
+
+require 'vendor/autoload.php';
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
@@ -226,12 +227,8 @@ class Skd extends CI_Controller
         $activeWorksheet->getStyle('A1')->getAlignment()->setVertical('center');
         $activeWorksheet->getStyle('A2:T2')->getAlignment()->setVertical('center');
         $activeWorksheet->mergeCells('A1:Q1');
-
-
-
         $activeWorksheet->getStyle('A2:T2')->getAlignment()->setHorizontal('center');
         $activeWorksheet->getStyle('A1:Q1')->getAlignment()->setHorizontal('center');
-
         $activeWorksheet->setCellValue('A1', 'REKAP DATA SKD');
         $activeWorksheet->setCellValue('A2', 'NO');
         $activeWorksheet->setCellValue('B2', 'TANGGAL PENYERAHAAN');
@@ -279,6 +276,10 @@ class Skd extends CI_Controller
             $activeWorksheet->setCellValue('T' . $column, strtoupper($value->catatan_skd));
             $column++;
         }
+        $activeWorksheet->setCellValue('A' . $column + 2, 'Diunduh pada tanggal ' . date('d/m/Y') . ' Dari PORTAL KLINIK oleh ' .
+            ucwords(decrypt_url($this->session->userdata('nama_user'))));
+        $activeWorksheet->mergeCells('A' . $column + 2 . ':T' . $column + 2);
+        $activeWorksheet->getStyle('A' . $column + 2)->getFont()->setItalic(true);
         $styleArray = [
             'borders' => [
                 'allBorders' => [
@@ -288,7 +289,7 @@ class Skd extends CI_Controller
         ];
         $activeWorksheet->getStyle('A2:T' . ($column - 1))->applyFromArray($styleArray);
         $writer = new Xlsx($spreadsheet);
-        $filename = 'data_skd.xlsx';
+        $filename = 'Data_skd.xlsx';
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment; filename="' . $filename . '"');
         $writer->save('php://output');

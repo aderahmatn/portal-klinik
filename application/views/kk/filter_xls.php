@@ -1,10 +1,10 @@
- <form role="form" method="POST" action="<?= base_url('kunjungan/excel') ?>" autocomplete="off">
+ <form role="form" method="POST" action="<?= base_url('kk/excel') ?>" autocomplete="off">
      <input type="hidden" name="<?= $this->security->get_csrf_token_name(); ?>" value="<?= $this->security->get_csrf_hash(); ?>" style="display: none">
      <div class="field">
          <div class="row">
              <div class="col-md-4">
                  <div class="form-group required">
-                     <label class="control-label" for="ftgl_awal">Range Awal Tanggal Kunjungan</label>
+                     <label class="control-label" for="ftgl_awal">Range Awal Tanggal Kejadian</label>
                      <input type="date" class="form-control <?= form_error('ftgl_awal') ? 'is-invalid' : '' ?>" id="ftgl_awal" name="ftgl_awal" placeholder="Tanggal kunjungan" value="<?= date('Y') . '-' . date('m') . '-' . date('d') ?>" required>
                      <div class="invalid-feedback">
                          <?= form_error('ftgl_awal') ?>
@@ -13,7 +13,7 @@
              </div>
              <div class="col-md-4">
                  <div class="form-group required">
-                     <label class="control-label" for="ftgl_akhir">Range Akhir Tanggal Kunjungan</label>
+                     <label class="control-label" for="ftgl_akhir">Range Akhir Tanggal Kejadian</label>
                      <input type="date" class="form-control <?= form_error('ftgl_akhir') ? 'is-invalid' : '' ?>" id="ftgl_akhir" name="ftgl_akhir" placeholder="Tanggal kunjungan" value="<?= date('Y') . '-' . date('m') . '-' . date('d') ?>" required>
                      <div class="invalid-feedback">
                          <?= form_error('ftgl_akhir') ?>
@@ -22,15 +22,19 @@
              </div>
              <div class="col-md-4">
                  <div class="form-group required">
-                     <label class="control-label" for="fdiagnosa[]">Diagnosa</label>
-                     <select class="form-control select-diagnosa  <?php echo form_error('fdiagnosa[]') ? 'is-invalid' : '' ?>" id="fdiagnosa[]" name="fdiagnosa[]" multiple="multiple" required>
-                         <option value="all" selected>SEMUA DIAGNOSA</option>
-                         <?php foreach ($diagnosa as $key) : ?>
-                             <option value="<?= $key->id_diagnosa ?>"><?= strtoupper($key->diagnosa)  ?></option>
-                         <?php endforeach ?>
+                     <label class="control-label" for="fpendidikan[]">Pendidikan Terakhir Karyawan</label>
+                     <select class="form-control select-departemen  <?php echo form_error('fpendidikan[]') ? 'is-invalid' : '' ?>" id="fpendidikan[]" name="fpendidikan[]" multiple="multiple" required>
+                         <option value="all" selected>SEMUA JENJANG</option>
+                         <option value="SD">SD</option>
+                         <option value="SMA/SMK">SMA/SMK</option>
+                         <option value="DIPLOMA (D3)">DIPLOMA (D3)</option>
+                         <option value="SARJANA (S1)">SARJANA (S1)</option>
+                         <option value="MAGISTER (S2)">MAGISTER (S2)</option>
+                         <option value="DOKTORAL (S3)">DOKTORAL (S3)</option>
+
                      </select>
                      <div class="invalid-feedback">
-                         <?= form_error('fdiagnosa[]') ?>
+                         <?= form_error('fpendidikan[]') ?>
                      </div>
                  </div>
              </div>
@@ -136,12 +140,11 @@
              </table>
          </div>
 
-         <hr class="mt-5">
+         <hr class="mt-5 ">
          <button type="submit" class="btn btn-success float-right mt-2" id="btn-print" disabled onclick="load()"><i class="far fa-file-excel"></i> GENERATE SPREADSHEET</button>
          <button class="btn btn-success float-right mt-2" id="btn-load" disabled><span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>DOWNLOADING..</button>
 
  </form>
-
  <script>
      $(document).ready(function() {
          $('#btn-load').hide();

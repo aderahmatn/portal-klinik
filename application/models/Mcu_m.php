@@ -9,8 +9,10 @@ class Mcu_m extends CI_Model
     public $kesimpulan;
     public $saran;
     public $kategori_mcu;
+    public $kategori_followup;
     public $file_mcu;
     public $created_by;
+    public $catatan;
     public $deleted;
     public function rules_mcu()
     {
@@ -37,7 +39,12 @@ class Mcu_m extends CI_Model
             ],
             [
                 'field' => 'fkategori',
-                'label' => 'kategori MCU',
+                'label' => 'kategori MCU awal',
+                'rules' => 'required'
+            ],
+            [
+                'field' => 'fkategori_followup',
+                'label' => 'kategori MCU follow up',
                 'rules' => 'required'
             ],
         ];
@@ -47,6 +54,46 @@ class Mcu_m extends CI_Model
         $this->db->select('*');
         $this->db->from($this->_table);
         $this->db->join('karyawan', 'karyawan.id_karyawan = mcu.id_karyawan', 'left');
+        $this->db->order_by('id_mcu', 'desc');
+        $this->db->where('mcu.deleted', 0);
+        $query = $this->db->get();
+        return $query->result();
+    }
+    public function get_all_mcu_by_filter(
+        $tgl_awal,
+        $tgl_akhir,
+        $divisi,
+        $departemen,
+        $status,
+        $karyawan,
+        $kategori,
+        $kategori_folup
+    ) {
+        $this->db->select('*');
+        $this->db->from($this->_table);
+        $this->db->join('karyawan', 'karyawan.id_karyawan = mcu.id_karyawan', 'left');
+        $this->db->join('divisi', 'divisi.id_divisi = karyawan.id_divisi', 'left');
+        $this->db->join('departemen', 'departemen.id_departemen = karyawan.id_departemen', 'left');
+        $this->db->where('tgl_mcu >=', $tgl_awal);
+        $this->db->where('tgl_mcu <=', $tgl_akhir);
+        if (in_array("all", $divisi) == false) {
+            $this->db->where_in('karyawan.id_divisi', $divisi);
+        }
+        if (in_array("all", $departemen) == false) {
+            $this->db->where_in('karyawan.id_departemen', $departemen);
+        }
+        if (in_array("all", $status) == false) {
+            $this->db->where_in('karyawan.status', $status);
+        }
+        if (in_array("all", $karyawan) == false) {
+            $this->db->where_in('kunjungan.id_karyawan', $karyawan);
+        }
+        if (in_array("all", $kategori) == false) {
+            $this->db->where_in('mcu.kategori_mcu', $kategori);
+        }
+        if (in_array("all", $kategori_folup) == false) {
+            $this->db->where_in('mcu.kategori_followup', $kategori_folup);
+        }
         $this->db->order_by('id_mcu', 'desc');
         $this->db->where('mcu.deleted', 0);
         $query = $this->db->get();
@@ -72,6 +119,8 @@ class Mcu_m extends CI_Model
         $this->kesimpulan = $post['fkesimpulan'];
         $this->saran = $post['fsaran'];
         $this->kategori_mcu = $post['fkategori'];
+        $this->kategori_followup = $post['fkategori_followup'];
+        $this->catatan = $post['fcatatan'];
         $this->file_mcu = $file;
         $this->created_by = decrypt_url($this->session->userdata('id_user'));
         $this->deleted = 0;
@@ -90,6 +139,8 @@ class Mcu_m extends CI_Model
         $this->db->set('kesimpulan',  $post['fkesimpulan']);
         $this->db->set('saran',  $post['fsaran']);
         $this->db->set('kategori_mcu',  $post['fkategori']);
+        $this->db->set('kategori_followup',  $post['fkategori_followup']);
+        $this->db->set('catatan',  $post['fcatatan']);
         $this->db->where('id_mcu', decrypt_url($post['fid_mcu']));
         $this->db->update($this->_table);
     }

@@ -1,11 +1,11 @@
- <form role="form" method="POST" action="<?= base_url('kunjungan/excel') ?>" autocomplete="off">
+ <form role="form" method="POST" action="<?= base_url('mcu/excel') ?>" autocomplete="off">
      <input type="hidden" name="<?= $this->security->get_csrf_token_name(); ?>" value="<?= $this->security->get_csrf_hash(); ?>" style="display: none">
      <div class="field">
          <div class="row">
              <div class="col-md-4">
                  <div class="form-group required">
-                     <label class="control-label" for="ftgl_awal">Range Awal Tanggal Kunjungan</label>
-                     <input type="date" class="form-control <?= form_error('ftgl_awal') ? 'is-invalid' : '' ?>" id="ftgl_awal" name="ftgl_awal" placeholder="Tanggal kunjungan" value="<?= date('Y') . '-' . date('m') . '-' . date('d') ?>" required>
+                     <label class="control-label" for="ftgl_awal">Range Awal Tanggal MCU</label>
+                     <input type="date" class="form-control <?= form_error('ftgl_awal') ? 'is-invalid' : '' ?>" id="ftgl_awal" name="ftgl_awal" placeholder="Tanggal MCU" value="<?= date('Y') . '-' . date('m') . '-' . date('d') ?>" required>
                      <div class="invalid-feedback">
                          <?= form_error('ftgl_awal') ?>
                      </div>
@@ -13,24 +13,40 @@
              </div>
              <div class="col-md-4">
                  <div class="form-group required">
-                     <label class="control-label" for="ftgl_akhir">Range Akhir Tanggal Kunjungan</label>
-                     <input type="date" class="form-control <?= form_error('ftgl_akhir') ? 'is-invalid' : '' ?>" id="ftgl_akhir" name="ftgl_akhir" placeholder="Tanggal kunjungan" value="<?= date('Y') . '-' . date('m') . '-' . date('d') ?>" required>
+                     <label class="control-label" for="ftgl_akhir">Range Akhir Tanggal MCU</label>
+                     <input type="date" class="form-control <?= form_error('ftgl_akhir') ? 'is-invalid' : '' ?>" id="ftgl_akhir" name="ftgl_akhir" placeholder="Tanggal MCU" value="<?= date('Y') . '-' . date('m') . '-' . date('d') ?>" required>
                      <div class="invalid-feedback">
                          <?= form_error('ftgl_akhir') ?>
                      </div>
                  </div>
              </div>
+         </div>
+         <div class="row">
              <div class="col-md-4">
                  <div class="form-group required">
-                     <label class="control-label" for="fdiagnosa[]">Diagnosa</label>
-                     <select class="form-control select-diagnosa  <?php echo form_error('fdiagnosa[]') ? 'is-invalid' : '' ?>" id="fdiagnosa[]" name="fdiagnosa[]" multiple="multiple" required>
-                         <option value="all" selected>SEMUA DIAGNOSA</option>
-                         <?php foreach ($diagnosa as $key) : ?>
-                             <option value="<?= $key->id_diagnosa ?>"><?= strtoupper($key->diagnosa)  ?></option>
-                         <?php endforeach ?>
+                     <label class="control-label" for="fkategori_awal[]">Kategori MCU Awal</label>
+                     <select class="form-control select-diagnosa  <?php echo form_error('fkategori_awal[]') ? 'is-invalid' : '' ?>" id="fkategori_awal[]" name="fkategori_awal[]" multiple="multiple" required>
+                         <option value="all" selected>SEMUA KATEGORI</option>
+                         <option value="1">[1] BAIK - FIT TO WORK</option>
+                         <option value="2">[2] CUKUP - FIT WITH NOTE</option>
+                         <option value="3">[3] KURANG - TEMPORARY UNFIT</option>
                      </select>
                      <div class="invalid-feedback">
-                         <?= form_error('fdiagnosa[]') ?>
+                         <?= form_error('fkategori_awal[]') ?>
+                     </div>
+                 </div>
+             </div>
+             <div class="col-md-4">
+                 <div class="form-group required">
+                     <label class="control-label" for="fkategori_folup[]">Kategori MCU Follow Up</label>
+                     <select class="form-control select-diagnosa  <?php echo form_error('fkategori_folup[]') ? 'is-invalid' : '' ?>" id="fkategori_folup[]" name="fkategori_folup[]" multiple="multiple" required>
+                         <option value="all" selected>SEMUA KATEGORI</option>
+                         <option value="1">[1] BAIK - FIT TO WORK</option>
+                         <option value="2">[2] CUKUP - FIT WITH NOTE</option>
+                         <option value="3">[3] KURANG - TEMPORARY UNFIT</option>
+                     </select>
+                     <div class="invalid-feedback">
+                         <?= form_error('fkategori_folup[]') ?>
                      </div>
                  </div>
              </div>
@@ -82,8 +98,9 @@
                  </div>
              </div>
          </div>
+
          <div class="form-group required">
-             <table id="tableKaryawan" class="display nowrap text-sm table-sm mt-4" style="width:100%">
+             <table id="tableKar" class="display nowrap text-sm table-sm mt-4" style="width:100%">
                  <thead>
                      <tr>
                          <th><input type='checkbox' class='check-item' name='karyawan[]' value='all' id="check-all"> <label for="check-all">SELECT ALL</label></th>
@@ -165,7 +182,7 @@
 
 
      });
-     $("#tableKaryawan").DataTable({
+     $("#tableKar").DataTable({
          // rowReorder: {
          //     selector: 'td:nth-child(2)'
          // },

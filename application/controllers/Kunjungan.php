@@ -13,14 +13,10 @@ class Kunjungan extends CI_Controller
     {
         parent::__construct();
         check_not_login();
-        $this->load->model(['Kunjungan_m', 'Karyawan_m', 'Diagnosa_m', 'Diagnosa_kunjungan_m', 'Obat_m', 'Obat_kunjungan_m']);
+        $this->load->model(['Kunjungan_m', 'Karyawan_m', 'Diagnosa_m', 'Diagnosa_kunjungan_m', 'Obat_m', 'Obat_kunjungan_m', 'Kk_m']);
         $this->load->helper(['diagnosa_kunjungan', 'obat_kunjungan']);
     }
 
-    // function test()
-    // {
-    //     get_obat_kunjungan_by_id_kunjungan_text(30);
-    // }
     public function index()
     {
         $data['kunjungan'] = $this->Kunjungan_m->get_all_kunjungan();
@@ -250,6 +246,13 @@ class Kunjungan extends CI_Controller
             $activeWorksheet->setCellValue('Q' . $column, strtoupper($value->nama_user));
             $column++;
         }
+        $activeWorksheet->setCellValue('A' . $column + 2, 'Diunduh pada tanggal ' . date('d/m/Y') . ' Dari PORTAL KLINIK oleh ' .
+            ucwords(decrypt_url($this->session->userdata('nama_user'))));
+        $activeWorksheet->mergeCells('A' . $column + 2 . ':Q' . $column + 2);
+        $activeWorksheet->getStyle('A' . $column + 2)->getFont()->setItalic(true);
+        $activeWorksheet->getStyle('A' . $column + 2)->getFont()->setItalic(true);
+        $activeWorksheet->getStyle('A' . $column + 2)->getAlignment()->setHorizontal('left');
+
         $styleArray = [
             'borders' => [
                 'allBorders' => [
@@ -259,9 +262,10 @@ class Kunjungan extends CI_Controller
         ];
         $activeWorksheet->getStyle('A2:Q' . ($column - 1))->applyFromArray($styleArray);
         $writer = new Xlsx($spreadsheet);
-        $filename = 'data_kunjungan.xlsx';
+        $filename = 'Data_Kunjungan.xlsx';
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment; filename="' . $filename . '"');
+        ob_end_clean();
         $writer->save('php://output');
         exit();
     }

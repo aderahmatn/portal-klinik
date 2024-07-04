@@ -461,9 +461,20 @@
 <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" id="modal_xls" class="modal fade">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
-            <div class="modal-header">
-                <P class="modal-title">EXPORT SPREADSHEET</P>
-                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+            <div class="row m-0 py-2 bg-success rounded-top">
+                <div class="col-sm-1">
+                    <img src="<?= base_url() . 'assets/images/skd.png' ?>" alt="Responsive image" height="60px">
+                </div>
+                <div class="col-sm-10 align-content-center float-sm-right">
+                    <h5 class="mb-0 text-white font-weight-bold">EXPORT SPREADSHEET</h5>
+                    <p class="mb-0 text-white font-weight-light">Data Surat Keterangan Dokter (SKD)</p>
+
+                </div>
+                <div class="col-sm-1 align-content-center">
+                    <div class="float-sm-right align-content-center">
+                        <button aria-hidden="true" data-dismiss="modal" class="close btn-lg mr-3" type="button" style="font-size: 1.8rem;">×</button>
+                    </div>
+                </div>
             </div>
 
             <div class="modal-body " id="body-xls">
